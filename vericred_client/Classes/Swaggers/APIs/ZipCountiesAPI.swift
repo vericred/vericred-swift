@@ -12,53 +12,29 @@ extension vericred_clientAPI {
 
 public class ZipCountiesAPI: APIBase {
     /**
-     Find Zip Counties by Zip Code
+     Search for Zip Counties
      
      - parameter zipPrefix: (query) Partial five-digit Zip 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func zipCountiesGet(zipPrefix zipPrefix: String, completion: ((data: InlineResponse2002?, error: ErrorType?) -> Void)) {
-        zipCountiesGetWithRequestBuilder(zipPrefix: zipPrefix).execute { (response, error) -> Void in
+    public class func getZipCounties(zipPrefix zipPrefix: String, completion: ((data: ZipCountyResponse?, error: ErrorType?) -> Void)) {
+        getZipCountiesWithRequestBuilder(zipPrefix: zipPrefix).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
     }
 
 
     /**
-     Find Zip Counties by Zip Code
+     Search for Zip Counties
      - GET /zip_counties
-     - ### Finding Zip Code and Fips Code
-
-Our `Plan` endpoints require a zip code and a fips (county) code.  This is
-because plan pricing requires both of these elements.  Users are unlikely to
-know their fips code, so we provide this endpoint to look up a `ZipCounty` by
-zip code and return both the selected zip and fips codes.
-
-
-     - examples: [{contentType=application/json, example={
-  "zip_counties" : [ {
-    "county_id" : 1,
-    "zip_code_id" : 2
-  } ],
-  "zip_codes" : [ {
-    "id" : 2,
-    "code" : "10024"
-  } ],
-  "counties" : [ {
-    "id" : 1,
-    "fips_code" : "36061",
-    "name" : "New York",
-    "state_code" : "NY",
-    "state_live" : true,
-    "state_live_for_business" : false
-  } ]
-}}]
+     - Our `Plan` endpoints require a zip code and a fips (county) code.  This is because plan pricing requires both of these elements.  Users are unlikely to know their fips code, so we provide this endpoint to look up a `ZipCounty` by zip code and return both the selected zip and fips codes.
+     - examples: [{contentType=application/json, example="{\n  \"zip_counties\" : [ {\n    \"county_id\" : 1,\n    \"zip_code_id\" : 2\n  } ],\n  \"zip_codes\" : [ {\n    \"id\" : 2,\n    \"code\" : \"10024\"\n  } ],\n  \"counties\" : [ {\n    \"id\" : 1,\n    \"fips_code\" : \"36061\",\n    \"name\" : \"New York\",\n    \"state_code\" : \"NY\",\n    \"state_live\" : true,\n    \"state_live_for_business\" : false\n  } ]\n}"}]
      
      - parameter zipPrefix: (query) Partial five-digit Zip 
 
-     - returns: RequestBuilder<InlineResponse2002> 
+     - returns: RequestBuilder<ZipCountyResponse> 
      */
-    public class func zipCountiesGetWithRequestBuilder(zipPrefix zipPrefix: String) -> RequestBuilder<InlineResponse2002> {
+    public class func getZipCountiesWithRequestBuilder(zipPrefix zipPrefix: String) -> RequestBuilder<ZipCountyResponse> {
         let path = "/zip_counties"
         let URLString = vericred_clientAPI.basePath + path
 
@@ -67,7 +43,7 @@ zip code and return both the selected zip and fips codes.
         ]
         let parameters = APIHelper.rejectNil(nillableParameters)
 
-        let requestBuilder: RequestBuilder<InlineResponse2002>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<ZipCountyResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: URLString, parameters: parameters, isBody: false)
     }

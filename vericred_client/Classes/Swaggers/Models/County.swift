@@ -19,11 +19,9 @@ public class County: JSONEncodable {
     public var stateCode: String?
     /** state relationship */
     public var stateId: Int32?
-    /** Is the state containing this county active for consumers?
-                  *deprecated in favor of last_date_for_individual */
+    /** Is the state containing this county active for consumers?(deprecated in favor of last_date_for_individual) */
     public var stateLive: Bool?
-    /** Is the state containing this county active for business?
-                  *deprecated in favor of last_date_for_shop */
+    /** Is the state containing this county active for business?(deprecated in favor of last_date_for_shop) */
     public var stateLiveForBusiness: Bool?
 
     public init() {}

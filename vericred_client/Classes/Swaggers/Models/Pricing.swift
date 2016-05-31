@@ -17,8 +17,20 @@ public class Pricing: JSONEncodable {
     public var expirationDate: NSDate?
     /** Foreign key to plans */
     public var planId: Int32?
+    /** Child-only premium */
+    public var premiumChildOnly: Double?
+    /** Family premium */
+    public var premiumFamily: Double?
+    /** Single-person premium */
+    public var premiumSingle: Double?
+    /** Single person including children premium */
+    public var premiumSingleAndChildren: Double?
+    /** Person with spouse premium */
+    public var premiumSingleAndSpouse: Double?
+    /** Premium for single smoker */
+    public var premiumSingleSmoker: Double?
     /** Foreign key to rating areas */
-    public var ratingAreaId: Int32?
+    public var ratingAreaId: String?
 
     public init() {}
 
@@ -29,7 +41,13 @@ public class Pricing: JSONEncodable {
         nillableDictionary["effective_date"] = self.effectiveDate?.encodeToJSON()
         nillableDictionary["expiration_date"] = self.expirationDate?.encodeToJSON()
         nillableDictionary["plan_id"] = self.planId?.encodeToJSON()
-        nillableDictionary["rating_area_id"] = self.ratingAreaId?.encodeToJSON()
+        nillableDictionary["premium_child_only"] = self.premiumChildOnly
+        nillableDictionary["premium_family"] = self.premiumFamily
+        nillableDictionary["premium_single"] = self.premiumSingle
+        nillableDictionary["premium_single_and_children"] = self.premiumSingleAndChildren
+        nillableDictionary["premium_single_and_spouse"] = self.premiumSingleAndSpouse
+        nillableDictionary["premium_single_smoker"] = self.premiumSingleSmoker
+        nillableDictionary["rating_area_id"] = self.ratingAreaId
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }
