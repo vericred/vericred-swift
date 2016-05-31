@@ -10,20 +10,23 @@ import Foundation
 
 public class Drug: JSONEncodable {
     /** National Drug Code ID */
-    public var ndc: String?
+    public var id: String?
     /** Proprietary name of drug */
     public var proprietaryName: String?
     /** Non-proprietary name of drug */
     public var nonProprietaryName: String?
+    /** Array of drug package Ids */
+    public var drugPackageIds: [String]?
 
     public init() {}
 
     // MARK: JSONEncodable
     func encodeToJSON() -> AnyObject {
         var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["ndc"] = self.ndc
+        nillableDictionary["id"] = self.id
         nillableDictionary["proprietary_name"] = self.proprietaryName
         nillableDictionary["non_proprietary_name"] = self.nonProprietaryName
+        nillableDictionary["drug_package_ids"] = self.drugPackageIds?.encodeToJSON()
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

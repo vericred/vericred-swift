@@ -23,6 +23,8 @@ public class Plan: JSONEncodable {
     public var childDental: Bool?
     /** Child eyewear benefits summary */
     public var childEyewear: String?
+    /** Child eye exam benefits summary */
+    public var childEyeExam: String?
     /** Phone number to contact the insurance carrier */
     public var customerServicePhoneNumber: String?
     /** Benefits summary for durable medical equipment */
@@ -31,6 +33,10 @@ public class Plan: JSONEncodable {
     public var diagnosticTest: String?
     /** Link to the summary of drug benefits for the plan */
     public var drugFormularyUrl: String?
+    /** Effective date of coverage. */
+    public var effectiveDate: String?
+    /** Expiration date of coverage. */
+    public var expirationDate: String?
     /** Description of costs when visiting the ER */
     public var emergencyRoom: String?
     /** Deductible for drugs when a family is on the plan. */
@@ -43,12 +49,20 @@ public class Plan: JSONEncodable {
     public var familyMedicalMoop: String?
     /** Cost for generic drugs */
     public var genericDrugs: String?
+    /** Habilitation services benefits summary */
+    public var habilitationServices: String?
     /**  */
     public var hiosIssuerId: String?
+    /** Home health care benefits summary */
+    public var homeHealthCare: String?
+    /** Hospice service benefits summary */
+    public var hospiceService: String?
     /** Government-issued HIOS plan ID */
     public var id: String?
     /** Benefits summary for imaging coverage */
     public var imaging: String?
+    /** List of NPI numbers for Providers passed in who accept this Plan */
+    public var inNetworkIds: [Int32]?
     /** Deductible for drugs when an individual is on the plan */
     public var individualDrugDeductible: String?
     /** Maximum out-of-pocket for drugs when an individual is on the plan */
@@ -57,10 +71,16 @@ public class Plan: JSONEncodable {
     public var individualMedicalDeductible: String?
     /** Maximum out-of-pocket when an individual is on the plan */
     public var individualMedicalMoop: String?
+    /** Inpatient birth benefits summary */
+    public var inpatientBirth: String?
     /** Cost under the plan for an inpatient facility */
     public var inpatientFacility: String?
+    /** Inpatient mental helath benefits summary */
+    public var inpatientMentalHealth: String?
     /** Cost under the plan for an inpatient physician */
     public var inpatientPhysician: String?
+    /** Inpatient substance abuse benefits summary */
+    public var inpatientSubstance: String?
     /** Plan metal grouping (e.g. platinum, gold, silver, etc) */
     public var level: String?
     /** Link to a copy of the insurance carrier&#39;s logo */
@@ -77,24 +97,36 @@ public class Plan: JSONEncodable {
     public var offMarket: Bool?
     /** Does this plan provide any out of network coverage? */
     public var outOfNetworkCoverage: Bool?
+    /** List of NPI numbers for Providers passed in who do not accept this Plan */
+    public var outOfNetworkIds: [Int32]?
     /** Benefits summary for outpatient facility coverage */
     public var outpatientFacility: String?
     /** Benefits summary for outpatient mental health coverage */
     public var outpatientMentalHealth: String?
     /** Benefits summary for outpatient physician coverage */
     public var outpatientPhysician: String?
+    /** Outpatient substance abuse benefits summary */
+    public var outpatientSubstance: String?
     /** Market in which the plan is offered (on_marketplace, shop, etc) */
     public var planMarket: String?
     /** Category of the plan (e.g. EPO, HMO, PPO, POS, Indemnity) */
     public var planType: String?
     /** Cost under the plan for perferred brand drugs */
     public var preferredBrandDrugs: String?
+    /** Inpatient substance abuse benefits summary */
+    public var prenatalPostnatalCare: String?
     /** Benefits summary for preventative care */
     public var preventativeCare: String?
+    /** Cumulative premium amount after subsidy */
+    public var premiumSubsidized: Double?
+    /** Cumulative premium amount */
+    public var premium: Double?
     /** Cost under the plan to visit a Primary Care Physician */
     public var primaryCarePhysician: String?
     /** Benefits summary for rehabilitation services */
     public var rehabilitationServices: String?
+    /** Benefits summary for skilled nursing services */
+    public var skilledNursing: String?
     /** Cost under the plan to visit a specialist */
     public var specialist: String?
     /** Cost under the plan for specialty drugs */
@@ -114,25 +146,35 @@ public class Plan: JSONEncodable {
         nillableDictionary["carrier_name"] = self.carrierName
         nillableDictionary["child_dental"] = self.childDental
         nillableDictionary["child_eyewear"] = self.childEyewear
+        nillableDictionary["child_eye_exam"] = self.childEyeExam
         nillableDictionary["customer_service_phone_number"] = self.customerServicePhoneNumber
         nillableDictionary["durable_medical_equipment"] = self.durableMedicalEquipment
         nillableDictionary["diagnostic_test"] = self.diagnosticTest
         nillableDictionary["drug_formulary_url"] = self.drugFormularyUrl
+        nillableDictionary["effective_date"] = self.effectiveDate
+        nillableDictionary["expiration_date"] = self.expirationDate
         nillableDictionary["emergency_room"] = self.emergencyRoom
         nillableDictionary["family_drug_deductible"] = self.familyDrugDeductible
         nillableDictionary["family_drug_moop"] = self.familyDrugMoop
         nillableDictionary["family_medical_deductible"] = self.familyMedicalDeductible
         nillableDictionary["family_medical_moop"] = self.familyMedicalMoop
         nillableDictionary["generic_drugs"] = self.genericDrugs
+        nillableDictionary["habilitation_services"] = self.habilitationServices
         nillableDictionary["hios_issuer_id"] = self.hiosIssuerId
+        nillableDictionary["home_health_care"] = self.homeHealthCare
+        nillableDictionary["hospice_service"] = self.hospiceService
         nillableDictionary["id"] = self.id
         nillableDictionary["imaging"] = self.imaging
+        nillableDictionary["in_network_ids"] = self.inNetworkIds?.encodeToJSON()
         nillableDictionary["individual_drug_deductible"] = self.individualDrugDeductible
         nillableDictionary["individual_drug_moop"] = self.individualDrugMoop
         nillableDictionary["individual_medical_deductible"] = self.individualMedicalDeductible
         nillableDictionary["individual_medical_moop"] = self.individualMedicalMoop
+        nillableDictionary["inpatient_birth"] = self.inpatientBirth
         nillableDictionary["inpatient_facility"] = self.inpatientFacility
+        nillableDictionary["inpatient_mental_health"] = self.inpatientMentalHealth
         nillableDictionary["inpatient_physician"] = self.inpatientPhysician
+        nillableDictionary["inpatient_substance"] = self.inpatientSubstance
         nillableDictionary["level"] = self.level
         nillableDictionary["logo_url"] = self.logoUrl
         nillableDictionary["name"] = self.name
@@ -141,15 +183,21 @@ public class Plan: JSONEncodable {
         nillableDictionary["on_market"] = self.onMarket
         nillableDictionary["off_market"] = self.offMarket
         nillableDictionary["out_of_network_coverage"] = self.outOfNetworkCoverage
+        nillableDictionary["out_of_network_ids"] = self.outOfNetworkIds?.encodeToJSON()
         nillableDictionary["outpatient_facility"] = self.outpatientFacility
         nillableDictionary["outpatient_mental_health"] = self.outpatientMentalHealth
         nillableDictionary["outpatient_physician"] = self.outpatientPhysician
+        nillableDictionary["outpatient_substance"] = self.outpatientSubstance
         nillableDictionary["plan_market"] = self.planMarket
         nillableDictionary["plan_type"] = self.planType
         nillableDictionary["preferred_brand_drugs"] = self.preferredBrandDrugs
+        nillableDictionary["prenatal_postnatal_care"] = self.prenatalPostnatalCare
         nillableDictionary["preventative_care"] = self.preventativeCare
+        nillableDictionary["premium_subsidized"] = self.premiumSubsidized
+        nillableDictionary["premium"] = self.premium
         nillableDictionary["primary_care_physician"] = self.primaryCarePhysician
         nillableDictionary["rehabilitation_services"] = self.rehabilitationServices
+        nillableDictionary["skilled_nursing"] = self.skilledNursing
         nillableDictionary["specialist"] = self.specialist
         nillableDictionary["specialty_drugs"] = self.specialtyDrugs
         nillableDictionary["urgent_care"] = self.urgentCare

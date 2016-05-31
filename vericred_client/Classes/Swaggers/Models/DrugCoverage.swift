@@ -12,7 +12,7 @@ public class DrugCoverage: JSONEncodable {
     /** Health Insurance Oversight System id */
     public var planId: String?
     /** NDC package code */
-    public var ndcPackageCode: String?
+    public var drugPackageId: String?
     /** Tier Name */
     public var tier: String?
     /** Quantity limit exists */
@@ -28,7 +28,7 @@ public class DrugCoverage: JSONEncodable {
     func encodeToJSON() -> AnyObject {
         var nillableDictionary = [String:AnyObject?]()
         nillableDictionary["plan_id"] = self.planId
-        nillableDictionary["ndc_package_code"] = self.ndcPackageCode
+        nillableDictionary["drug_package_id"] = self.drugPackageId
         nillableDictionary["tier"] = self.tier
         nillableDictionary["quantity_limit"] = self.quantityLimit
         nillableDictionary["prior_authorization"] = self.priorAuthorization

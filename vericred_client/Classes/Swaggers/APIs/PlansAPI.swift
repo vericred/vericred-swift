@@ -12,21 +12,21 @@ extension vericred_clientAPI {
 
 public class PlansAPI: APIBase {
     /**
-     Find a set of plans for a Zip Code and County
+     Find Plans
      
-     - parameter query: (body) Plan query 
+     - parameter body: (body)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func plansFindPost(query query: Query, completion: ((data: [Plan]?, error: ErrorType?) -> Void)) {
-        plansFindPostWithRequestBuilder(query: query).execute { (response, error) -> Void in
+    public class func findPlans(body body: RequestPlanFind? = nil, completion: ((data: PlanSearchResponse?, error: ErrorType?) -> Void)) {
+        findPlansWithRequestBuilder(body: body).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
     }
 
 
     /**
-     Find a set of plans for a Zip Code and County
-     - POST /plans/find
+     Find Plans
+     - POST /plans/search
      - ### Location Information
 
 Searching for a set of plans requires a `zip_code` and `fips_code`
@@ -46,7 +46,6 @@ Applicants *must* include an age.  If smoker is omitted, its value is assumed
 to be false.
 
 #### Multiple Applicants
-
 To get pricing for multiple applicants, just append multiple sets
 of data to the URL with the age and smoking status of each applicant
 next to each other.
@@ -89,57 +88,18 @@ and return it for each plan.  If no values are provided, the
 
 `GET /plans?zip_code=07451&fips_code=33025&household_size=4&household_income=40000`
 
-
-     - examples: [{contentType=application/json, example={
-  "plans" : [ {
-    "adult_dental" : true,
-    "benefits_summary_url" : "http://www.emblemhealth.com/~/media/Files/PDF/HIXHub/BenefitSummary_SelectCareSilver.pdf",
-    "buy_link" : "http://www.healthbenefitexchange.ny.gov/",
-    "carrier_name" : "EmblemHealth",
-    "child_dental" : "",
-    "customer_service_phone_number" : "1-866-640-3889",
-    "drug_formulary_url" : "http://www.emblemhealth.com/~/media/Files/PDF/Pharmacy/ValuePlus_Formulary.pdf",
-    "emergency_room" : "Deductible, then $150",
-    "family_drug_deductible" : "Included in Medical",
-    "family_drug_moop" : "Included in Medical",
-    "family_medical_deductible" : "$4,000",
-    "family_medical_moop" : "$11,000",
-    "generic_drugs" : "$10",
-    "id" : "88582NY0230001",
-    "in_network_ids" : [ 123456789, 234567890 ],
-    "individual_drug_deductible" : "Included in Medical",
-    "individual_drug_moop" : "Included in Medical",
-    "individual_medical_deductible" : "$2,000",
-    "individual_medical_moop" : "$5,500",
-    "inpatient_facility" : "Deductible, then $1,500 per admission\"",
-    "inpatient_physician" : "Included in inpatient facility",
-    "level" : "silver",
-    "logo_url" : "https://d1hm12jr612u3r.cloudfront.net/images/carriers/174/1438891372/thumb.png?1438891372",
-    "name" : "Select Care Silver, Age 29 Rider",
-    "non_preferred_brand_drugs" : "$70",
-    "out_of_network_coverage" : "",
-    "out_of_network_ids" : [ 123456789, 234567890 ],
-    "plan_market" : "shop",
-    "plan_type" : "HMO",
-    "preferred_brand_drugs" : "$35",
-    "premium_subsidized" : 321.5,
-    "premium" : 533.24,
-    "primary_care_physician" : "Deductible, then $30",
-    "specialist" : "Deductible, then $50",
-    "specialty_drugs" : "$70"
-  } ]
-}}]
+     - examples: [{contentType=application/json, example="{\n  \"plans\" : [ {\n    \"adult_dental\" : true,\n    \"benefits_summary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/HIXHub/BenefitSummary_SelectCareSilver.pdf\",\n    \"buy_link\" : \"http://www.healthbenefitexchange.ny.gov/\",\n    \"carrier_name\" : \"EmblemHealth\",\n    \"child_dental\" : \"\",\n    \"customer_service_phone_number\" : \"1-866-640-3889\",\n    \"drug_formulary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/Pharmacy/ValuePlus_Formulary.pdf\",\n    \"emergency_room\" : \"Deductible, then $150\",\n    \"family_drug_deductible\" : \"Included in Medical\",\n    \"family_drug_moop\" : \"Included in Medical\",\n    \"family_medical_deductible\" : \"$4,000\",\n    \"family_medical_moop\" : \"$11,000\",\n    \"generic_drugs\" : \"$10\",\n    \"id\" : \"88582NY0230001\",\n    \"in_network_ids\" : [ 123456789, 234567890 ],\n    \"individual_drug_deductible\" : \"Included in Medical\",\n    \"individual_drug_moop\" : \"Included in Medical\",\n    \"individual_medical_deductible\" : \"$2,000\",\n    \"individual_medical_moop\" : \"$5,500\",\n    \"inpatient_facility\" : \"Deductible, then $1,500 per admission\\\"\",\n    \"inpatient_physician\" : \"Included in inpatient facility\",\n    \"level\" : \"silver\",\n    \"logo_url\" : \"https://d1hm12jr612u3r.cloudfront.net/images/carriers/174/1438891372/thumb.png?1438891372\",\n    \"name\" : \"Select Care Silver, Age 29 Rider\",\n    \"non_preferred_brand_drugs\" : \"$70\",\n    \"out_of_network_coverage\" : \"\",\n    \"out_of_network_ids\" : [ 123456789, 234567890 ],\n    \"plan_market\" : \"shop\",\n    \"plan_type\" : \"HMO\",\n    \"preferred_brand_drugs\" : \"$35\",\n    \"premium_subsidized\" : 321.5,\n    \"premium\" : 533.24,\n    \"primary_care_physician\" : \"Deductible, then $30\",\n    \"specialist\" : \"Deductible, then $50\",\n    \"specialty_drugs\" : \"$70\"\n  } ]\n}"}]
      
-     - parameter query: (body) Plan query 
+     - parameter body: (body)  (optional)
 
-     - returns: RequestBuilder<[Plan]> 
+     - returns: RequestBuilder<PlanSearchResponse> 
      */
-    public class func plansFindPostWithRequestBuilder(query query: Query) -> RequestBuilder<[Plan]> {
-        let path = "/plans/find"
+    public class func findPlansWithRequestBuilder(body body: RequestPlanFind? = nil) -> RequestBuilder<PlanSearchResponse> {
+        let path = "/plans/search"
         let URLString = vericred_clientAPI.basePath + path
-        let parameters = query.encodeToJSON() as? [String:AnyObject]
+        let parameters = body?.encodeToJSON() as? [String:AnyObject]
 
-        let requestBuilder: RequestBuilder<[Plan]>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<PlanSearchResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: parameters, isBody: true)
     }

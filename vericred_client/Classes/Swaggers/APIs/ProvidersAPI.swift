@@ -12,27 +12,57 @@ extension vericred_clientAPI {
 
 public class ProvidersAPI: APIBase {
     /**
-     Find providers by term and zip code
+     Find a Provider
      
-     - parameter searchTerm: (query) String to search by 
-     - parameter zipCode: (query) Zip Code to search near 
-     - parameter acceptsInsurance: (query) Limit results to Providers who accept at least one insurance plan.  Note that the inverse of this filter is not supported and any value will evaluate to true (optional)
-     - parameter hiosIds: (query) HIOS id of one or more plans (optional)
-     - parameter page: (query) Page number (optional)
-     - parameter perPage: (query) Number of records to return per page (optional)
-     - parameter radius: (query) Radius (in miles) to use to limit results (optional)
+     - parameter npi: (path) NPI number 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func providersGet(searchTerm searchTerm: String, zipCode: String, acceptsInsurance: String? = nil, hiosIds: [String]? = nil, page: String? = nil, perPage: String? = nil, radius: String? = nil, completion: ((data: InlineResponse200?, error: ErrorType?) -> Void)) {
-        providersGetWithRequestBuilder(searchTerm: searchTerm, zipCode: zipCode, acceptsInsurance: acceptsInsurance, hiosIds: hiosIds, page: page, perPage: perPage, radius: radius).execute { (response, error) -> Void in
+    public class func getProvider(npi npi: String, completion: ((data: Provider?, error: ErrorType?) -> Void)) {
+        getProviderWithRequestBuilder(npi: npi).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
     }
 
 
     /**
-     Find providers by term and zip code
-     - GET /providers
+     Find a Provider
+     - GET /providers/{npi}
+     - To retrieve a specific provider, just perform a GET using his NPI number
+     - examples: [{contentType=application/json, example="{\n  \"provider\" : {\n    \"accepting_change_of_payor_patients\" : false,\n    \"accepting_medicaid_patients\" : true,\n    \"accepting_medicare_patients\" : false,\n    \"accepting_private_patients\" : true,\n    \"accepting_referral_patients\" : false,\n    \"city\" : \"New York\",\n    \"email\" : \"foo@bar.com\",\n    \"gender\" : \"M\",\n    \"first_name\" : \"John\",\n    \"hios_ids\" : [ \"44580NY0360001\" ],\n    \"id\" : 1013965003,\n    \"last_name\" : \"Doe\",\n    \"middle_name\" : \"Quintus\",\n    \"personal_phone\" : \"2035551800\",\n    \"phone\" : \"2223334444\",\n    \"presentation_name\" : \"Dr. John Doe\",\n    \"specialty\" : \"Internal Medicine\",\n    \"state\" : \"NY\",\n    \"state_id\" : 1,\n    \"street_line_1\" : \"123 Fake Street\",\n    \"street_line_2\" : \"\",\n    \"suffix\" : null,\n    \"title\" : \"Dr.\",\n    \"type\" : \"organization\",\n    \"zip_code\" : \"11215\"\n  }\n}"}]
+     
+     - parameter npi: (path) NPI number 
+
+     - returns: RequestBuilder<Provider> 
+     */
+    public class func getProviderWithRequestBuilder(npi npi: String) -> RequestBuilder<Provider> {
+        var path = "/providers/{npi}"
+        path = path.stringByReplacingOccurrencesOfString("{npi}", withString: "\(npi)", options: .LiteralSearch, range: nil)
+        let URLString = vericred_clientAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+        let parameters = APIHelper.rejectNil(nillableParameters)
+
+        let requestBuilder: RequestBuilder<Provider>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: parameters, isBody: true)
+    }
+
+    /**
+     Find Providers
+     
+     - parameter body: (body)  (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getProviders(body body: RequestProvidersSearch? = nil, completion: ((data: ProvidersSearchResponse?, error: ErrorType?) -> Void)) {
+        getProvidersWithRequestBuilder(body: body).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Find Providers
+     - POST /providers/search
      - All `Provider` searches require a `zip_code`, which we use for weighting
 the search results to favor `Provider`s that are near the user.  For example,
 we would want "Dr. John Smith" who is 5 miles away to appear before
@@ -47,133 +77,20 @@ The free text search also supports Specialty name search and "body part"
 Specialty name search.  So, searching "John Smith nose" would return
 "Dr. John Smith", the ENT Specialist before "Dr. John Smith" the Internist.
 
-
-     - examples: [{contentType=application/json, example={
-  "meta" : {
-    "total" : 100
-  },
-  "providers" : [ {
-    "accepting_change_of_payor_patients" : false,
-    "accepting_medicaid_patients" : true,
-    "accepting_medicare_patients" : false,
-    "accepting_private_patients" : true,
-    "accepting_referral_patients" : false,
-    "city" : "New York",
-    "email" : "foo@bar.com",
-    "gender" : "M",
-    "first_name" : "John",
-    "id" : 1013965003,
-    "last_name" : "Doe",
-    "middle_name" : "Quintus",
-    "personal_phone" : "2035551800",
-    "phone" : "2223334444",
-    "presentation_name" : "Dr. John Doe",
-    "specialty" : "Internal Medicine",
-    "state" : "NY",
-    "state_id" : 1,
-    "street_line_1" : "123 Fake Street",
-    "street_line_2" : "",
-    "suffix" : null,
-    "title" : "Dr.",
-    "type" : "organization",
-    "zip_code" : "11215"
-  } ]
-}}]
+     - examples: [{contentType=application/json, example="{\n  \"meta\" : {\n    \"total\" : 100\n  },\n  \"providers\" : [ {\n    \"accepting_change_of_payor_patients\" : false,\n    \"accepting_medicaid_patients\" : true,\n    \"accepting_medicare_patients\" : false,\n    \"accepting_private_patients\" : true,\n    \"accepting_referral_patients\" : false,\n    \"city\" : \"New York\",\n    \"email\" : \"foo@bar.com\",\n    \"gender\" : \"M\",\n    \"first_name\" : \"John\",\n    \"id\" : 1013965003,\n    \"last_name\" : \"Doe\",\n    \"middle_name\" : \"Quintus\",\n    \"personal_phone\" : \"2035551800\",\n    \"phone\" : \"2223334444\",\n    \"presentation_name\" : \"Dr. John Doe\",\n    \"specialty\" : \"Internal Medicine\",\n    \"state\" : \"NY\",\n    \"state_id\" : 1,\n    \"street_line_1\" : \"123 Fake Street\",\n    \"street_line_2\" : \"\",\n    \"suffix\" : null,\n    \"title\" : \"Dr.\",\n    \"type\" : \"organization\",\n    \"zip_code\" : \"11215\"\n  } ]\n}"}]
      
-     - parameter searchTerm: (query) String to search by 
-     - parameter zipCode: (query) Zip Code to search near 
-     - parameter acceptsInsurance: (query) Limit results to Providers who accept at least one insurance plan.  Note that the inverse of this filter is not supported and any value will evaluate to true (optional)
-     - parameter hiosIds: (query) HIOS id of one or more plans (optional)
-     - parameter page: (query) Page number (optional)
-     - parameter perPage: (query) Number of records to return per page (optional)
-     - parameter radius: (query) Radius (in miles) to use to limit results (optional)
+     - parameter body: (body)  (optional)
 
-     - returns: RequestBuilder<InlineResponse200> 
+     - returns: RequestBuilder<ProvidersSearchResponse> 
      */
-    public class func providersGetWithRequestBuilder(searchTerm searchTerm: String, zipCode: String, acceptsInsurance: String? = nil, hiosIds: [String]? = nil, page: String? = nil, perPage: String? = nil, radius: String? = nil) -> RequestBuilder<InlineResponse200> {
-        let path = "/providers"
+    public class func getProvidersWithRequestBuilder(body body: RequestProvidersSearch? = nil) -> RequestBuilder<ProvidersSearchResponse> {
+        let path = "/providers/search"
         let URLString = vericred_clientAPI.basePath + path
+        let parameters = body?.encodeToJSON() as? [String:AnyObject]
 
-        let nillableParameters: [String:AnyObject?] = [
-            "accepts_insurance": acceptsInsurance,
-            "hios_ids": hiosIds,
-            "page": page,
-            "per_page": perPage,
-            "radius": radius,
-            "search_term": searchTerm,
-            "zip_code": zipCode
-        ]
-        let parameters = APIHelper.rejectNil(nillableParameters)
+        let requestBuilder: RequestBuilder<ProvidersSearchResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
 
-        let requestBuilder: RequestBuilder<InlineResponse200>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: parameters, isBody: false)
-    }
-
-    /**
-     Find a specific Provider
-     
-     - parameter npi: (path) NPI number 
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    public class func providersNpiGet(npi npi: String, completion: ((data: InlineResponse2001?, error: ErrorType?) -> Void)) {
-        providersNpiGetWithRequestBuilder(npi: npi).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
-        }
-    }
-
-
-    /**
-     Find a specific Provider
-     - GET /providers/{npi}
-     - To retrieve a specific provider, just perform a GET using his NPI number
-
-
-     - examples: [{contentType=application/json, example={
-  "provider" : {
-    "accepting_change_of_payor_patients" : false,
-    "accepting_medicaid_patients" : true,
-    "accepting_medicare_patients" : false,
-    "accepting_private_patients" : true,
-    "accepting_referral_patients" : false,
-    "city" : "New York",
-    "email" : "foo@bar.com",
-    "gender" : "M",
-    "first_name" : "John",
-    "hios_ids" : [ "44580NY0360001" ],
-    "id" : 1013965003,
-    "last_name" : "Doe",
-    "middle_name" : "Quintus",
-    "personal_phone" : "2035551800",
-    "phone" : "2223334444",
-    "presentation_name" : "Dr. John Doe",
-    "specialty" : "Internal Medicine",
-    "state" : "NY",
-    "state_id" : 1,
-    "street_line_1" : "123 Fake Street",
-    "street_line_2" : "",
-    "suffix" : null,
-    "title" : "Dr.",
-    "type" : "organization",
-    "zip_code" : "11215"
-  }
-}}]
-     
-     - parameter npi: (path) NPI number 
-
-     - returns: RequestBuilder<InlineResponse2001> 
-     */
-    public class func providersNpiGetWithRequestBuilder(npi npi: String) -> RequestBuilder<InlineResponse2001> {
-        var path = "/providers/{npi}"
-        path = path.stringByReplacingOccurrencesOfString("{npi}", withString: "\(npi)", options: .LiteralSearch, range: nil)
-        let URLString = vericred_clientAPI.basePath + path
-
-        let nillableParameters: [String:AnyObject?] = [:]
-        let parameters = APIHelper.rejectNil(nillableParameters)
-
-        let requestBuilder: RequestBuilder<InlineResponse2001>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: parameters, isBody: true)
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: parameters, isBody: true)
     }
 
 }

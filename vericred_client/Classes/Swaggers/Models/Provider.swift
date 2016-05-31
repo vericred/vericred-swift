@@ -27,12 +27,20 @@ public class Provider: JSONEncodable {
     public var gender: String?
     /** Given name for the provider. */
     public var firstName: String?
+    /** List of HIOS ids for this provider */
+    public var hiosIds: [String]?
     /** National Provider Index (NPI) number */
     public var id: Int32?
     /** Family name for the provider. */
     public var lastName: String?
+    /** Latitude of provider */
+    public var latitude: Double?
+    /** Longitude of provider */
+    public var longitude: Double?
     /** Middle name for the provider. */
     public var middleName: String?
+    /** Array of network ids */
+    public var networkIds: [Int32]?
     /** Personal contact phone for the provider. */
     public var personalPhone: String?
     /** Office phone for the provider */
@@ -72,9 +80,13 @@ public class Provider: JSONEncodable {
         nillableDictionary["email"] = self.email
         nillableDictionary["gender"] = self.gender
         nillableDictionary["first_name"] = self.firstName
+        nillableDictionary["hios_ids"] = self.hiosIds?.encodeToJSON()
         nillableDictionary["id"] = self.id?.encodeToJSON()
         nillableDictionary["last_name"] = self.lastName
+        nillableDictionary["latitude"] = self.latitude
+        nillableDictionary["longitude"] = self.longitude
         nillableDictionary["middle_name"] = self.middleName
+        nillableDictionary["network_ids"] = self.networkIds?.encodeToJSON()
         nillableDictionary["personal_phone"] = self.personalPhone
         nillableDictionary["phone"] = self.phone
         nillableDictionary["presentation_name"] = self.presentationName

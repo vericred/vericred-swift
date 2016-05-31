@@ -13,7 +13,7 @@ public class Applicant: JSONEncodable {
     public var id: Int32?
     /** Date of Birth */
     public var dob: NSDate?
-    /** Foreign key to members */
+    /** Member token */
     public var memberId: String?
     /** Full name of the Applicant */
     public var name: String?
