@@ -604,6 +604,19 @@ class Decoders {
             }
 
 
+            // Decoder for [ProviderShowResponse]
+            Decoders.addDecoder(clazz: [ProviderShowResponse].self) { (source: AnyObject) -> [ProviderShowResponse] in
+                return Decoders.decode(clazz: [ProviderShowResponse].self, source: source)
+            }
+            // Decoder for ProviderShowResponse
+            Decoders.addDecoder(clazz: ProviderShowResponse.self) { (source: AnyObject) -> ProviderShowResponse in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = ProviderShowResponse()
+                instance.provider = Decoders.decodeOptional(clazz: Provider.self, source: sourceDictionary["provider"])
+                return instance
+            }
+
+
             // Decoder for [ProvidersSearchResponse]
             Decoders.addDecoder(clazz: [ProvidersSearchResponse].self) { (source: AnyObject) -> [ProvidersSearchResponse] in
                 return Decoders.decode(clazz: [ProvidersSearchResponse].self, source: source)
