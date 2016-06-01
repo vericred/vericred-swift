@@ -17,7 +17,7 @@ public class ProvidersAPI: APIBase {
      - parameter npi: (path) NPI number 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func getProvider(npi npi: String, completion: ((data: Provider?, error: ErrorType?) -> Void)) {
+    public class func getProvider(npi npi: String, completion: ((data: ProviderShowResponse?, error: ErrorType?) -> Void)) {
         getProviderWithRequestBuilder(npi: npi).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
@@ -32,9 +32,9 @@ public class ProvidersAPI: APIBase {
      
      - parameter npi: (path) NPI number 
 
-     - returns: RequestBuilder<Provider> 
+     - returns: RequestBuilder<ProviderShowResponse> 
      */
-    public class func getProviderWithRequestBuilder(npi npi: String) -> RequestBuilder<Provider> {
+    public class func getProviderWithRequestBuilder(npi npi: String) -> RequestBuilder<ProviderShowResponse> {
         var path = "/providers/{npi}"
         path = path.stringByReplacingOccurrencesOfString("{npi}", withString: "\(npi)", options: .LiteralSearch, range: nil)
         let URLString = vericred_clientAPI.basePath + path
@@ -42,7 +42,7 @@ public class ProvidersAPI: APIBase {
         let nillableParameters: [String:AnyObject?] = [:]
         let parameters = APIHelper.rejectNil(nillableParameters)
 
-        let requestBuilder: RequestBuilder<Provider>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<ProviderShowResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: URLString, parameters: parameters, isBody: true)
     }
