@@ -11,6 +11,8 @@ import Foundation
 public class PlanSearchResult: JSONEncodable {
     /** Does the plan provide dental coverage for adults? */
     public var adultDental: Bool?
+    /**  */
+    public var age29Rider: Bool?
     /** Benefits string for ambulance coverage */
     public var ambulance: String?
     /** Link to the summary of benefits and coverage (SBC) document. */
@@ -31,6 +33,8 @@ public class PlanSearchResult: JSONEncodable {
     public var durableMedicalEquipment: String?
     /** Diagnostic tests benefit summary */
     public var diagnosticTest: String?
+    /** Is this a domestic plan? */
+    public var dpRider: Bool?
     /** Link to the summary of drug benefits for the plan */
     public var drugFormularyUrl: String?
     /** Effective date of coverage. */
@@ -47,6 +51,8 @@ public class PlanSearchResult: JSONEncodable {
     public var familyMedicalDeductible: String?
     /** Maximum out-of-pocket when a family is on the plan */
     public var familyMedicalMoop: String?
+    /** Is this a family plan? */
+    public var fpRider: Bool?
     /** Cost for generic drugs */
     public var genericDrugs: String?
     /** Habilitation services benefits summary */
@@ -146,6 +152,7 @@ public class PlanSearchResult: JSONEncodable {
     func encodeToJSON() -> AnyObject {
         var nillableDictionary = [String:AnyObject?]()
         nillableDictionary["adult_dental"] = self.adultDental
+        nillableDictionary["age29_rider"] = self.age29Rider
         nillableDictionary["ambulance"] = self.ambulance
         nillableDictionary["benefits_summary_url"] = self.benefitsSummaryUrl
         nillableDictionary["buy_link"] = self.buyLink
@@ -156,6 +163,7 @@ public class PlanSearchResult: JSONEncodable {
         nillableDictionary["customer_service_phone_number"] = self.customerServicePhoneNumber
         nillableDictionary["durable_medical_equipment"] = self.durableMedicalEquipment
         nillableDictionary["diagnostic_test"] = self.diagnosticTest
+        nillableDictionary["dp_rider"] = self.dpRider
         nillableDictionary["drug_formulary_url"] = self.drugFormularyUrl
         nillableDictionary["effective_date"] = self.effectiveDate
         nillableDictionary["expiration_date"] = self.expirationDate
@@ -164,6 +172,7 @@ public class PlanSearchResult: JSONEncodable {
         nillableDictionary["family_drug_moop"] = self.familyDrugMoop
         nillableDictionary["family_medical_deductible"] = self.familyMedicalDeductible
         nillableDictionary["family_medical_moop"] = self.familyMedicalMoop
+        nillableDictionary["fp_rider"] = self.fpRider
         nillableDictionary["generic_drugs"] = self.genericDrugs
         nillableDictionary["habilitation_services"] = self.habilitationServices
         nillableDictionary["hios_issuer_id"] = self.hiosIssuerId

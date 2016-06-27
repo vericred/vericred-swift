@@ -13,6 +13,8 @@ public class CarrierSubsidiary: JSONEncodable {
     public var id: Int32?
     /** Subsidiary name */
     public var name: String?
+    /** Parent Carrier Name */
+    public var alternateName: String?
 
     public init() {}
 
@@ -21,6 +23,7 @@ public class CarrierSubsidiary: JSONEncodable {
         var nillableDictionary = [String:AnyObject?]()
         nillableDictionary["id"] = self.id?.encodeToJSON()
         nillableDictionary["name"] = self.name
+        nillableDictionary["alternate_name"] = self.alternateName
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }
