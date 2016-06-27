@@ -31,7 +31,7 @@ public class PlansAPI: APIBase {
 
 Searching for a set of plans requires a `zip_code` and `fips_code`
 code.  These are used to determine pricing and availabity
-of health plans.
+of health plans. This endpoint is paginated.
 
 Optionally, you may provide a list of Applicants or Providers
 
@@ -88,6 +88,17 @@ and return it for each plan.  If no values are provided, the
 
 `GET /plans?zip_code=07451&fips_code=33025&household_size=4&household_income=40000`
 
+
+### Sorting
+
+Plans can be sorted by the `premium`, `carrier_name`, `level`, and `plan_type` fields,
+by either ascending (as `asc`) or descending (as `dsc) sort under the `sort` field.
+
+For example, to sort plans by level, the sort parameter would be `level:asc`.
+
+     - API Key:
+       - type: apiKey Vericred-Api-Key 
+       - name: Vericred-Api-Key
      - examples: [{contentType=application/json, example="{\n  \"plans\" : [ {\n    \"adult_dental\" : true,\n    \"benefits_summary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/HIXHub/BenefitSummary_SelectCareSilver.pdf\",\n    \"buy_link\" : \"http://www.healthbenefitexchange.ny.gov/\",\n    \"carrier_name\" : \"EmblemHealth\",\n    \"child_dental\" : \"\",\n    \"customer_service_phone_number\" : \"1-866-640-3889\",\n    \"drug_formulary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/Pharmacy/ValuePlus_Formulary.pdf\",\n    \"emergency_room\" : \"Deductible, then $150\",\n    \"family_drug_deductible\" : \"Included in Medical\",\n    \"family_drug_moop\" : \"Included in Medical\",\n    \"family_medical_deductible\" : \"$4,000\",\n    \"family_medical_moop\" : \"$11,000\",\n    \"generic_drugs\" : \"$10\",\n    \"id\" : \"88582NY0230001\",\n    \"in_network_ids\" : [ 123456789, 234567890 ],\n    \"individual_drug_deductible\" : \"Included in Medical\",\n    \"individual_drug_moop\" : \"Included in Medical\",\n    \"individual_medical_deductible\" : \"$2,000\",\n    \"individual_medical_moop\" : \"$5,500\",\n    \"inpatient_facility\" : \"Deductible, then $1,500 per admission\\\"\",\n    \"inpatient_physician\" : \"Included in inpatient facility\",\n    \"level\" : \"silver\",\n    \"logo_url\" : \"https://d1hm12jr612u3r.cloudfront.net/images/carriers/174/1438891372/thumb.png?1438891372\",\n    \"name\" : \"Select Care Silver, Age 29 Rider\",\n    \"non_preferred_brand_drugs\" : \"$70\",\n    \"out_of_network_coverage\" : \"\",\n    \"out_of_network_ids\" : [ 123456789, 234567890 ],\n    \"plan_market\" : \"shop\",\n    \"plan_type\" : \"HMO\",\n    \"preferred_brand_drugs\" : \"$35\",\n    \"premium_subsidized\" : 321.5,\n    \"premium\" : 533.24,\n    \"primary_care_physician\" : \"Deductible, then $30\",\n    \"specialist\" : \"Deductible, then $50\",\n    \"specialty_drugs\" : \"$70\"\n  } ]\n}"}]
      
      - parameter body: (body)  (optional)

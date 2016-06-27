@@ -25,6 +25,12 @@ public class RequestPlanFind: JSONEncodable {
     public var market: String?
     /** List of providers to search for. */
     public var providers: [RequestPlanFindProvider]?
+    /** Selected page of paginated response. */
+    public var page: Int32?
+    /** Results per page of response. */
+    public var perPage: Int32?
+    /** Sort responses by plan field. */
+    public var sort: String?
     /** 5-digit zip code - this helps determine pricing. */
     public var zipCode: String?
 
@@ -41,6 +47,9 @@ public class RequestPlanFind: JSONEncodable {
         nillableDictionary["household_size"] = self.householdSize?.encodeToJSON()
         nillableDictionary["market"] = self.market
         nillableDictionary["providers"] = self.providers?.encodeToJSON()
+        nillableDictionary["page"] = self.page?.encodeToJSON()
+        nillableDictionary["per_page"] = self.perPage?.encodeToJSON()
+        nillableDictionary["sort"] = self.sort
         nillableDictionary["zip_code"] = self.zipCode
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
