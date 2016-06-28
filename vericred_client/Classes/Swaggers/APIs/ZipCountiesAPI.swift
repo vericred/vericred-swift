@@ -28,6 +28,9 @@ public class ZipCountiesAPI: APIBase {
      Search for Zip Counties
      - GET /zip_counties
      - Our `Plan` endpoints require a zip code and a fips (county) code.  This is because plan pricing requires both of these elements.  Users are unlikely to know their fips code, so we provide this endpoint to look up a `ZipCounty` by zip code and return both the selected zip and fips codes.
+     - API Key:
+       - type: apiKey Vericred-Api-Key 
+       - name: Vericred-Api-Key
      - examples: [{contentType=application/json, example="{\n  \"zip_counties\" : [ {\n    \"county_id\" : 1,\n    \"zip_code_id\" : 2\n  } ],\n  \"zip_codes\" : [ {\n    \"id\" : 2,\n    \"code\" : \"10024\"\n  } ],\n  \"counties\" : [ {\n    \"id\" : 1,\n    \"fips_code\" : \"36061\",\n    \"name\" : \"New York\",\n    \"state_code\" : \"NY\",\n    \"state_live\" : true,\n    \"state_live_for_business\" : false\n  } ]\n}"}]
      
      - parameter zipPrefix: (query) Partial five-digit Zip 
@@ -41,11 +44,14 @@ public class ZipCountiesAPI: APIBase {
         let nillableParameters: [String:AnyObject?] = [
             "zip_prefix": zipPrefix
         ]
+ 
         let parameters = APIHelper.rejectNil(nillableParameters)
-
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
         let requestBuilder: RequestBuilder<ZipCountyResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
 }

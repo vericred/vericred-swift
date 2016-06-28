@@ -28,6 +28,9 @@ public class ProvidersAPI: APIBase {
      Find a Provider
      - GET /providers/{npi}
      - To retrieve a specific provider, just perform a GET using his NPI number
+     - API Key:
+       - type: apiKey Vericred-Api-Key 
+       - name: Vericred-Api-Key
      - examples: [{contentType=application/json, example="{\n  \"provider\" : {\n    \"accepting_change_of_payor_patients\" : false,\n    \"accepting_medicaid_patients\" : true,\n    \"accepting_medicare_patients\" : false,\n    \"accepting_private_patients\" : true,\n    \"accepting_referral_patients\" : false,\n    \"city\" : \"New York\",\n    \"email\" : \"foo@bar.com\",\n    \"gender\" : \"M\",\n    \"first_name\" : \"John\",\n    \"hios_ids\" : [ \"44580NY0360001\" ],\n    \"id\" : 1013965003,\n    \"last_name\" : \"Doe\",\n    \"middle_name\" : \"Quintus\",\n    \"personal_phone\" : \"2035551800\",\n    \"phone\" : \"2223334444\",\n    \"presentation_name\" : \"Dr. John Doe\",\n    \"specialty\" : \"Internal Medicine\",\n    \"state\" : \"NY\",\n    \"state_id\" : 1,\n    \"street_line_1\" : \"123 Fake Street\",\n    \"street_line_2\" : \"\",\n    \"suffix\" : null,\n    \"title\" : \"Dr.\",\n    \"type\" : \"organization\",\n    \"zip_code\" : \"11215\"\n  }\n}"}]
      
      - parameter npi: (path) NPI number 
@@ -40,11 +43,14 @@ public class ProvidersAPI: APIBase {
         let URLString = vericred_clientAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [:]
+ 
         let parameters = APIHelper.rejectNil(nillableParameters)
-
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
         let requestBuilder: RequestBuilder<ProviderShowResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: parameters, isBody: true)
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
 
     /**
@@ -63,20 +69,10 @@ public class ProvidersAPI: APIBase {
     /**
      Find Providers
      - POST /providers/search
-     - All `Provider` searches require a `zip_code`, which we use for weighting
-the search results to favor `Provider`s that are near the user.  For example,
-we would want "Dr. John Smith" who is 5 miles away to appear before
-"Dr. John Smith" who is 100 miles away.
-
-The weighting also allows for non-exact matches.  In our prior example, we
-would want "Dr. Jon Smith" who is 2 miles away to appear before the exact
-match "Dr. John Smith" who is 100 miles away because it is more likely that
-the user just entered an incorrect name.
-
-The free text search also supports Specialty name search and "body part"
-Specialty name search.  So, searching "John Smith nose" would return
-"Dr. John Smith", the ENT Specialist before "Dr. John Smith" the Internist.
-
+     - All `Provider` searches require a `zip_code`, which we use for weighting the search results to favor `Provider`s that are near the user.  For example, we would want \"Dr. John Smith\" who is 5 miles away to appear before \"Dr. John Smith\" who is 100 miles away.  The weighting also allows for non-exact matches.  In our prior example, we would want \"Dr. Jon Smith\" who is 2 miles away to appear before the exact match \"Dr. John Smith\" who is 100 miles away because it is more likely that the user just entered an incorrect name.  The free text search also supports Specialty name search and \"body part\" Specialty name search.  So, searching \"John Smith nose\" would return \"Dr. John Smith\", the ENT Specialist before \"Dr. John Smith\" the Internist. 
+     - API Key:
+       - type: apiKey Vericred-Api-Key 
+       - name: Vericred-Api-Key
      - examples: [{contentType=application/json, example="{\n  \"meta\" : {\n    \"total\" : 100\n  },\n  \"providers\" : [ {\n    \"accepting_change_of_payor_patients\" : false,\n    \"accepting_medicaid_patients\" : true,\n    \"accepting_medicare_patients\" : false,\n    \"accepting_private_patients\" : true,\n    \"accepting_referral_patients\" : false,\n    \"city\" : \"New York\",\n    \"email\" : \"foo@bar.com\",\n    \"gender\" : \"M\",\n    \"first_name\" : \"John\",\n    \"id\" : 1013965003,\n    \"last_name\" : \"Doe\",\n    \"middle_name\" : \"Quintus\",\n    \"personal_phone\" : \"2035551800\",\n    \"phone\" : \"2223334444\",\n    \"presentation_name\" : \"Dr. John Doe\",\n    \"specialty\" : \"Internal Medicine\",\n    \"state\" : \"NY\",\n    \"state_id\" : 1,\n    \"street_line_1\" : \"123 Fake Street\",\n    \"street_line_2\" : \"\",\n    \"suffix\" : null,\n    \"title\" : \"Dr.\",\n    \"type\" : \"organization\",\n    \"zip_code\" : \"11215\"\n  } ]\n}"}]
      
      - parameter body: (body)  (optional)
@@ -87,10 +83,12 @@ Specialty name search.  So, searching "John Smith nose" would return
         let path = "/providers/search"
         let URLString = vericred_clientAPI.basePath + path
         let parameters = body?.encodeToJSON() as? [String:AnyObject]
-
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
         let requestBuilder: RequestBuilder<ProvidersSearchResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: URLString, parameters: parameters, isBody: true)
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
 
 }

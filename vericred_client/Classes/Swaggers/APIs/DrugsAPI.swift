@@ -29,9 +29,10 @@ public class DrugsAPI: APIBase {
     /**
      Search for DrugCoverages
      - GET /drug_packages/{ndcPackageCode}/coverages
-     - Drug Coverages are the specific tier level, quantity limit, prior
-authorization and step therapy for a given Drug/Plan combination. This endpoint
-returns all DrugCoverages for a given Drug
+     - Drug Coverages are the specific tier level, quantity limit, prior authorization and step therapy for a given Drug/Plan combination. This endpoint returns all DrugCoverages for a given Drug
+     - API Key:
+       - type: apiKey Vericred-Api-Key 
+       - name: Vericred-Api-Key
      - examples: [{contentType=application/json, example="{\n  \"coverages\" : [ {\n    \"plan_id\" : \"98825NY2251359\",\n    \"ndc_package_code\" : \"00000-0000-00\",\n    \"tier\" : \"TIER 1\",\n    \"quantity_limit\" : true,\n    \"prior_authorization\" : true,\n    \"step_therapy\" : false\n  } ]\n}"}]
      
      - parameter ndcPackageCode: (path) NDC package code 
@@ -49,11 +50,14 @@ returns all DrugCoverages for a given Drug
             "audience": audience,
             "state_code": stateCode
         ]
+ 
         let parameters = APIHelper.rejectNil(nillableParameters)
-
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
         let requestBuilder: RequestBuilder<DrugCoverageResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
     /**
@@ -73,6 +77,9 @@ returns all DrugCoverages for a given Drug
      Drug Search
      - GET /drugs
      - Search for drugs by proprietary name
+     - API Key:
+       - type: apiKey Vericred-Api-Key 
+       - name: Vericred-Api-Key
      - examples: [{contentType=application/json, example={
   "drugs" : [ {
     "non_proprietary_name" : "aeiou",
@@ -100,11 +107,14 @@ returns all DrugCoverages for a given Drug
         let nillableParameters: [String:AnyObject?] = [
             "search_term": searchTerm
         ]
+ 
         let parameters = APIHelper.rejectNil(nillableParameters)
-
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
         let requestBuilder: RequestBuilder<DrugSearchResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
 }

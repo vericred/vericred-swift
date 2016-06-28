@@ -9,9 +9,7 @@ import Foundation
 
 
 public class RequestProvidersSearch: JSONEncodable {
-    /** Limit results to Providers who accept at least one insurance
-        plan.  Note that the inverse of this filter is not supported and
-        any value will evaluate to true */
+    /** Limit results to Providers who accept at least one insurance         plan.  Note that the inverse of this filter is not supported and         any value will evaluate to true */
     public var acceptsInsurance: Bool?
     /** List of HIOS ids */
     public var hiosIds: [String]?
