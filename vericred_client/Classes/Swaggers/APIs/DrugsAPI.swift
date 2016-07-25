@@ -33,7 +33,7 @@ public class DrugsAPI: APIBase {
      - API Key:
        - type: apiKey Vericred-Api-Key 
        - name: Vericred-Api-Key
-     - examples: [{contentType=application/json, example="{\n  \"coverages\" : [ {\n    \"plan_id\" : \"98825NY2251359\",\n    \"ndc_package_code\" : \"00000-0000-00\",\n    \"tier\" : \"TIER 1\",\n    \"quantity_limit\" : true,\n    \"prior_authorization\" : true,\n    \"step_therapy\" : false\n  } ]\n}"}]
+     - examples: [{example="{\n  \"coverages\" : [ {\n    \"plan_id\" : \"98825NY2251359\",\n    \"ndc_package_code\" : \"00000-0000-00\",\n    \"tier\" : \"TIER 1\",\n    \"quantity_limit\" : true,\n    \"prior_authorization\" : true,\n    \"step_therapy\" : false\n  } ]\n}", contentType=application/json}]
      
      - parameter ndcPackageCode: (path) NDC package code 
      - parameter audience: (query) Two-character state code 
@@ -80,21 +80,21 @@ public class DrugsAPI: APIBase {
      - API Key:
        - type: apiKey Vericred-Api-Key 
        - name: Vericred-Api-Key
-     - examples: [{contentType=application/json, example={
+     - examples: [{example={
+  "drug_packages" : [ {
+    "id" : "aeiou",
+    "description" : "aeiou"
+  } ],
   "drugs" : [ {
-    "non_proprietary_name" : "aeiou",
+    "id" : "aeiou",
     "proprietary_name" : "aeiou",
-    "drug_package_ids" : [ "aeiou" ],
-    "id" : "aeiou"
+    "non_proprietary_name" : "aeiou",
+    "drug_package_ids" : [ "aeiou" ]
   } ],
   "meta" : {
     "total" : ""
-  },
-  "drug_packages" : [ {
-    "description" : "aeiou",
-    "id" : "aeiou"
-  } ]
-}}]
+  }
+}, contentType=application/json}]
      
      - parameter searchTerm: (query) Full or partial proprietary name of drug 
 

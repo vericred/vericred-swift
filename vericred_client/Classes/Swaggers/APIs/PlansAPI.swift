@@ -31,7 +31,7 @@ public class PlansAPI: APIBase {
      - API Key:
        - type: apiKey Vericred-Api-Key 
        - name: Vericred-Api-Key
-     - examples: [{contentType=application/json, example="{\n  \"plans\" : [ {\n    \"adult_dental\" : true,\n    \"benefits_summary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/HIXHub/BenefitSummary_SelectCareSilver.pdf\",\n    \"buy_link\" : \"http://www.healthbenefitexchange.ny.gov/\",\n    \"carrier_name\" : \"EmblemHealth\",\n    \"child_dental\" : \"\",\n    \"customer_service_phone_number\" : \"1-866-640-3889\",\n    \"drug_formulary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/Pharmacy/ValuePlus_Formulary.pdf\",\n    \"emergency_room\" : \"Deductible, then $150\",\n    \"family_drug_deductible\" : \"Included in Medical\",\n    \"family_drug_moop\" : \"Included in Medical\",\n    \"family_medical_deductible\" : \"$4,000\",\n    \"family_medical_moop\" : \"$11,000\",\n    \"generic_drugs\" : \"$10\",\n    \"id\" : \"88582NY0230001\",\n    \"in_network_ids\" : [ 123456789, 234567890 ],\n    \"individual_drug_deductible\" : \"Included in Medical\",\n    \"individual_drug_moop\" : \"Included in Medical\",\n    \"individual_medical_deductible\" : \"$2,000\",\n    \"individual_medical_moop\" : \"$5,500\",\n    \"inpatient_facility\" : \"Deductible, then $1,500 per admission\\\"\",\n    \"inpatient_physician\" : \"Included in inpatient facility\",\n    \"level\" : \"silver\",\n    \"logo_url\" : \"https://d1hm12jr612u3r.cloudfront.net/images/carriers/174/1438891372/thumb.png?1438891372\",\n    \"name\" : \"Select Care Silver, Age 29 Rider\",\n    \"non_preferred_brand_drugs\" : \"$70\",\n    \"out_of_network_coverage\" : \"\",\n    \"out_of_network_ids\" : [ 123456789, 234567890 ],\n    \"plan_market\" : \"shop\",\n    \"plan_type\" : \"HMO\",\n    \"preferred_brand_drugs\" : \"$35\",\n    \"premium_subsidized\" : 321.5,\n    \"premium\" : 533.24,\n    \"primary_care_physician\" : \"Deductible, then $30\",\n    \"specialist\" : \"Deductible, then $50\",\n    \"specialty_drugs\" : \"$70\"\n  } ]\n}"}]
+     - examples: [{example="{\n  \"plans\" : [ {\n    \"adult_dental\" : true,\n    \"benefits_summary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/HIXHub/BenefitSummary_SelectCareSilver.pdf\",\n    \"buy_link\" : \"http://www.healthbenefitexchange.ny.gov/\",\n    \"carrier_name\" : \"EmblemHealth\",\n    \"child_dental\" : \"\",\n    \"customer_service_phone_number\" : \"1-866-640-3889\",\n    \"drug_formulary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/Pharmacy/ValuePlus_Formulary.pdf\",\n    \"emergency_room\" : \"Deductible, then $150\",\n    \"family_drug_deductible\" : \"Included in Medical\",\n    \"family_drug_moop\" : \"Included in Medical\",\n    \"family_medical_deductible\" : \"$4,000\",\n    \"family_medical_moop\" : \"$11,000\",\n    \"generic_drugs\" : \"$10\",\n    \"id\" : \"88582NY0230001\",\n    \"in_network_ids\" : [ 123456789, 234567890 ],\n    \"individual_drug_deductible\" : \"Included in Medical\",\n    \"individual_drug_moop\" : \"Included in Medical\",\n    \"individual_medical_deductible\" : \"$2,000\",\n    \"individual_medical_moop\" : \"$5,500\",\n    \"inpatient_facility\" : \"Deductible, then $1,500 per admission\\\"\",\n    \"inpatient_physician\" : \"Included in inpatient facility\",\n    \"level\" : \"silver\",\n    \"logo_url\" : \"https://d1hm12jr612u3r.cloudfront.net/images/carriers/174/1438891372/thumb.png?1438891372\",\n    \"name\" : \"Select Care Silver, Age 29 Rider\",\n    \"non_preferred_brand_drugs\" : \"$70\",\n    \"out_of_network_coverage\" : \"\",\n    \"out_of_network_ids\" : [ 123456789, 234567890 ],\n    \"plan_market\" : \"shop\",\n    \"plan_type\" : \"HMO\",\n    \"preferred_brand_drugs\" : \"$35\",\n    \"premium_subsidized\" : 321.5,\n    \"premium\" : 533.24,\n    \"primary_care_physician\" : \"Deductible, then $30\",\n    \"specialist\" : \"Deductible, then $50\",\n    \"specialty_drugs\" : \"$70\"\n  } ]\n}", contentType=application/json}]
      
      - parameter body: (body)  (optional)
 
@@ -47,6 +47,120 @@ public class PlansAPI: APIBase {
         let requestBuilder: RequestBuilder<PlanSearchResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Show Plan
+     
+     - parameter year: (query) Plan year (defaults to current year) (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func showPlan(year year: Int32? = nil, completion: ((data: PlanShowResponse?, error: ErrorType?) -> Void)) {
+        showPlanWithRequestBuilder(year: year).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Show Plan
+     - GET /plans/{id}
+     - Show the details of an individual Plan.  This includes deductibles, maximums out of pocket, and co-pay/coinsurance for benefits
+     - API Key:
+       - type: apiKey Vericred-Api-Key 
+       - name: Vericred-Api-Key
+     - examples: [{example={
+  "plan" : {
+    "habilitation_services" : "aeiou",
+    "in_network_ids" : [ "" ],
+    "plan_market" : "aeiou",
+    "family_medical_deductible" : "aeiou",
+    "individual_medical_deductible" : "aeiou",
+    "specialist" : "aeiou",
+    "outpatient_mental_health" : "aeiou",
+    "preventative_care" : "aeiou",
+    "preferred_brand_drugs" : "aeiou",
+    "on_market" : true,
+    "family_medical_moop" : "aeiou",
+    "individual_drug_deductible" : "aeiou",
+    "outpatient_physician" : "aeiou",
+    "individual_medical_moop" : "aeiou",
+    "premium_subsidized" : 1.3579000000000001069366817318950779736042022705078125,
+    "skilled_nursing" : "aeiou",
+    "inpatient_facility" : "aeiou",
+    "level" : "aeiou",
+    "customer_service_phone_number" : "aeiou",
+    "child_dental" : true,
+    "outpatient_facility" : "aeiou",
+    "generic_drugs" : "aeiou",
+    "emergency_room" : "aeiou",
+    "carrier_name" : "aeiou",
+    "logo_url" : "aeiou",
+    "plan_type" : "aeiou",
+    "diagnostic_test" : "aeiou",
+    "inpatient_mental_health" : "aeiou",
+    "non_preferred_brand_drugs" : "aeiou",
+    "specialty_drugs" : "aeiou",
+    "off_market" : true,
+    "imaging" : "aeiou",
+    "inpatient_physician" : "aeiou",
+    "family_drug_deductible" : "aeiou",
+    "display_name" : "aeiou",
+    "expiration_date" : "aeiou",
+    "home_health_care" : "aeiou",
+    "fp_rider" : true,
+    "individual_drug_moop" : "aeiou",
+    "service_area_id" : "aeiou",
+    "child_eye_exam" : "aeiou",
+    "inpatient_birth" : "aeiou",
+    "family_drug_moop" : "aeiou",
+    "ambulance" : "aeiou",
+    "benefits_summary_url" : "aeiou",
+    "drug_formulary_url" : "aeiou",
+    "urgent_care" : "aeiou",
+    "id" : "aeiou",
+    "inpatient_substance" : "aeiou",
+    "hios_issuer_id" : "aeiou",
+    "out_of_network_coverage" : true,
+    "name" : "aeiou",
+    "buy_link" : "aeiou",
+    "outpatient_substance" : "aeiou",
+    "durable_medical_equipment" : "aeiou",
+    "age29_rider" : true,
+    "hsa_eligible" : true,
+    "child_eyewear" : "aeiou",
+    "premium" : 1.3579000000000001069366817318950779736042022705078125,
+    "dp_rider" : true,
+    "primary_care_physician" : "aeiou",
+    "adult_dental" : true,
+    "prenatal_postnatal_care" : "aeiou",
+    "hospice_service" : "aeiou",
+    "rehabilitation_services" : "aeiou",
+    "out_of_network_ids" : [ "" ],
+    "network_size" : "",
+    "effective_date" : "aeiou"
+  }
+}, contentType=application/json}]
+     
+     - parameter year: (query) Plan year (defaults to current year) (optional)
+
+     - returns: RequestBuilder<PlanShowResponse> 
+     */
+    public class func showPlanWithRequestBuilder(year year: Int32? = nil) -> RequestBuilder<PlanShowResponse> {
+        let path = "/plans/{id}"
+        let URLString = vericred_clientAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "year": year?.encodeToJSON()
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<PlanShowResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
 }

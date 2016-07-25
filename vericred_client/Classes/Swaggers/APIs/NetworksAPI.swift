@@ -33,15 +33,15 @@ public class NetworksAPI: APIBase {
      - API Key:
        - type: apiKey Vericred-Api-Key 
        - name: Vericred-Api-Key
-     - examples: [{contentType=application/json, example={
+     - examples: [{example={
+  "networks" : [ {
+    "id" : "",
+    "name" : "aeiou"
+  } ],
   "meta" : {
     "total" : ""
-  },
-  "networks" : [ {
-    "name" : "aeiou",
-    "id" : ""
-  } ]
-}}]
+  }
+}, contentType=application/json}]
      
      - parameter carrierId: (query) Carrier HIOS Issuer ID 
      - parameter page: (query) Page of paginated response (optional)

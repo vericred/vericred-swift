@@ -33,6 +33,8 @@ public class PlanSearchResult: JSONEncodable {
     public var durableMedicalEquipment: String?
     /** Diagnostic tests benefit summary */
     public var diagnosticTest: String?
+    /** Alternate name for the Plan */
+    public var displayName: String?
     /** Is this a domestic plan? */
     public var dpRider: Bool?
     /** Link to the summary of drug benefits for the plan */
@@ -63,6 +65,8 @@ public class PlanSearchResult: JSONEncodable {
     public var homeHealthCare: String?
     /** Hospice service benefits summary */
     public var hospiceService: String?
+    /** Is the plan HSA eligible? */
+    public var hsaEligible: Bool?
     /** Government-issued HIOS plan ID */
     public var id: String?
     /** Benefits summary for imaging coverage */
@@ -129,6 +133,8 @@ public class PlanSearchResult: JSONEncodable {
     public var primaryCarePhysician: String?
     /** Benefits summary for rehabilitation services */
     public var rehabilitationServices: String?
+    /** Foreign key for service area */
+    public var serviceAreaId: String?
     /** Benefits summary for skilled nursing services */
     public var skilledNursing: String?
     /** Cost under the plan to visit a specialist */
@@ -163,6 +169,7 @@ public class PlanSearchResult: JSONEncodable {
         nillableDictionary["customer_service_phone_number"] = self.customerServicePhoneNumber
         nillableDictionary["durable_medical_equipment"] = self.durableMedicalEquipment
         nillableDictionary["diagnostic_test"] = self.diagnosticTest
+        nillableDictionary["display_name"] = self.displayName
         nillableDictionary["dp_rider"] = self.dpRider
         nillableDictionary["drug_formulary_url"] = self.drugFormularyUrl
         nillableDictionary["effective_date"] = self.effectiveDate
@@ -178,6 +185,7 @@ public class PlanSearchResult: JSONEncodable {
         nillableDictionary["hios_issuer_id"] = self.hiosIssuerId
         nillableDictionary["home_health_care"] = self.homeHealthCare
         nillableDictionary["hospice_service"] = self.hospiceService
+        nillableDictionary["hsa_eligible"] = self.hsaEligible
         nillableDictionary["id"] = self.id
         nillableDictionary["imaging"] = self.imaging
         nillableDictionary["in_network_ids"] = self.inNetworkIds?.encodeToJSON()
@@ -211,6 +219,7 @@ public class PlanSearchResult: JSONEncodable {
         nillableDictionary["premium"] = self.premium
         nillableDictionary["primary_care_physician"] = self.primaryCarePhysician
         nillableDictionary["rehabilitation_services"] = self.rehabilitationServices
+        nillableDictionary["service_area_id"] = self.serviceAreaId
         nillableDictionary["skilled_nursing"] = self.skilledNursing
         nillableDictionary["specialist"] = self.specialist
         nillableDictionary["specialty_drugs"] = self.specialtyDrugs
