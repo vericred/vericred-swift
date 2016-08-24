@@ -15,6 +15,10 @@ public class CountyBulk: JSONEncodable {
     public var name: String?
     /** State code */
     public var stateId: String?
+    /** Count of unique rating areas in the county */
+    public var ratingAreaCount: String?
+    /** Count of unique service areas in the county */
+    public var serviceAreaCount: String?
 
     public init() {}
 
@@ -24,6 +28,8 @@ public class CountyBulk: JSONEncodable {
         nillableDictionary["id"] = self.id
         nillableDictionary["name"] = self.name
         nillableDictionary["state_id"] = self.stateId
+        nillableDictionary["rating_area_count"] = self.ratingAreaCount
+        nillableDictionary["service_area_count"] = self.serviceAreaCount
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }
