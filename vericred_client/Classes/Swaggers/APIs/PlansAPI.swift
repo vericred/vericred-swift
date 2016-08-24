@@ -49,5 +49,119 @@ public class PlansAPI: APIBase {
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
 
+    /**
+     Show Plan
+     
+     - parameter year: (query) Plan year (defaults to current year) (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func showPlan(year year: Int32? = nil, completion: ((data: PlanShowResponse?, error: ErrorType?) -> Void)) {
+        showPlanWithRequestBuilder(year: year).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Show Plan
+     - GET /plans/{id}
+     - Show the details of an individual Plan.  This includes deductibles, maximums out of pocket, and co-pay/coinsurance for benefits
+     - API Key:
+       - type: apiKey Vericred-Api-Key 
+       - name: Vericred-Api-Key
+     - examples: [{contentType=application/json, example={
+  "plan" : {
+    "family_drug_moop" : "aeiou",
+    "logo_url" : "aeiou",
+    "age29_rider" : true,
+    "in_network_ids" : [ "" ],
+    "individual_medical_moop" : "aeiou",
+    "customer_service_phone_number" : "aeiou",
+    "premium_subsidized" : 1.3579000000000001069366817318950779736042022705078125,
+    "child_eyewear" : "aeiou",
+    "expiration_date" : "aeiou",
+    "durable_medical_equipment" : "aeiou",
+    "inpatient_physician" : "aeiou",
+    "preferred_brand_drugs" : "aeiou",
+    "service_area_id" : "aeiou",
+    "child_dental" : true,
+    "family_medical_moop" : "aeiou",
+    "effective_date" : "aeiou",
+    "individual_drug_deductible" : "aeiou",
+    "outpatient_physician" : "aeiou",
+    "id" : "aeiou",
+    "primary_care_physician" : "aeiou",
+    "individual_medical_deductible" : "aeiou",
+    "network_size" : "",
+    "level" : "aeiou",
+    "plan_market" : "aeiou",
+    "inpatient_facility" : "aeiou",
+    "outpatient_mental_health" : "aeiou",
+    "family_drug_deductible" : "aeiou",
+    "ambulance" : "aeiou",
+    "hios_issuer_id" : "aeiou",
+    "display_name" : "aeiou",
+    "imaging" : "aeiou",
+    "urgent_care" : "aeiou",
+    "emergency_room" : "aeiou",
+    "rehabilitation_services" : "aeiou",
+    "hospice_service" : "aeiou",
+    "specialist" : "aeiou",
+    "outpatient_substance" : "aeiou",
+    "name" : "aeiou",
+    "habilitation_services" : "aeiou",
+    "inpatient_substance" : "aeiou",
+    "fp_rider" : true,
+    "home_health_care" : "aeiou",
+    "plan_type" : "aeiou",
+    "dp_rider" : true,
+    "buy_link" : "aeiou",
+    "skilled_nursing" : "aeiou",
+    "premium" : 1.3579000000000001069366817318950779736042022705078125,
+    "diagnostic_test" : "aeiou",
+    "generic_drugs" : "aeiou",
+    "non_preferred_brand_drugs" : "aeiou",
+    "off_market" : true,
+    "carrier_name" : "aeiou",
+    "out_of_network_ids" : [ "" ],
+    "hsa_eligible" : true,
+    "adult_dental" : true,
+    "benefits_summary_url" : "aeiou",
+    "prenatal_postnatal_care" : "aeiou",
+    "drug_formulary_url" : "aeiou",
+    "child_eye_exam" : "aeiou",
+    "individual_drug_moop" : "aeiou",
+    "inpatient_mental_health" : "aeiou",
+    "preventative_care" : "aeiou",
+    "inpatient_birth" : "aeiou",
+    "on_market" : true,
+    "outpatient_facility" : "aeiou",
+    "specialty_drugs" : "aeiou",
+    "family_medical_deductible" : "aeiou",
+    "out_of_network_coverage" : true
+  }
+}}]
+     
+     - parameter year: (query) Plan year (defaults to current year) (optional)
+
+     - returns: RequestBuilder<PlanShowResponse> 
+     */
+    public class func showPlanWithRequestBuilder(year year: Int32? = nil) -> RequestBuilder<PlanShowResponse> {
+        let path = "/plans/{id}"
+        let URLString = vericred_clientAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "year": year?.encodeToJSON()
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<PlanShowResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
 }
 }

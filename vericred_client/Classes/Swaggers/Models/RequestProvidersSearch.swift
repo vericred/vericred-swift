@@ -13,6 +13,8 @@ public class RequestProvidersSearch: JSONEncodable {
     public var acceptsInsurance: Bool?
     /** List of HIOS ids */
     public var hiosIds: [String]?
+    /** Minimum search threshold to be included in the results */
+    public var minScore: Double?
     /** Page number */
     public var page: Int32?
     /** Number of records to return per page */
@@ -33,6 +35,7 @@ public class RequestProvidersSearch: JSONEncodable {
         var nillableDictionary = [String:AnyObject?]()
         nillableDictionary["accepts_insurance"] = self.acceptsInsurance
         nillableDictionary["hios_ids"] = self.hiosIds?.encodeToJSON()
+        nillableDictionary["min_score"] = self.minScore
         nillableDictionary["page"] = self.page?.encodeToJSON()
         nillableDictionary["per_page"] = self.perPage?.encodeToJSON()
         nillableDictionary["radius"] = self.radius?.encodeToJSON()

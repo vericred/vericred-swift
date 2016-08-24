@@ -14,13 +14,15 @@ public class RequestPlanFind: JSONEncodable {
     /** Date of enrollment */
     public var enrollmentDate: String?
     /** National Drug Code Package Id */
-    public var drugPackages: [DrugPackage]?
+    public var drugPackages: [RequestPlanFindDrugPackage]?
     /** County code to determine eligibility */
     public var fipsCode: String?
     /** Total household income. */
     public var householdIncome: Int32?
     /** Number of people living in household. */
     public var householdSize: Int32?
+    /** List of plan IDs to filter by */
+    public var ids: [Int32]?
     /** Type of plan to search for. */
     public var market: String?
     /** List of providers to search for. */
@@ -45,6 +47,7 @@ public class RequestPlanFind: JSONEncodable {
         nillableDictionary["fips_code"] = self.fipsCode
         nillableDictionary["household_income"] = self.householdIncome?.encodeToJSON()
         nillableDictionary["household_size"] = self.householdSize?.encodeToJSON()
+        nillableDictionary["ids"] = self.ids?.encodeToJSON()
         nillableDictionary["market"] = self.market
         nillableDictionary["providers"] = self.providers?.encodeToJSON()
         nillableDictionary["page"] = self.page?.encodeToJSON()

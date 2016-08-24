@@ -15,10 +15,12 @@ public class ProvidersAPI: APIBase {
      Find a Provider
      
      - parameter npi: (path) NPI number 
+     - parameter year: (query) Only show plan ids for the given year (optional)
+     - parameter state: (query) Only show plan ids for the given state (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func getProvider(npi npi: String, completion: ((data: ProviderShowResponse?, error: ErrorType?) -> Void)) {
-        getProviderWithRequestBuilder(npi: npi).execute { (response, error) -> Void in
+    public class func getProvider(npi npi: String, year: String? = nil, state: String? = nil, completion: ((data: ProviderShowResponse?, error: ErrorType?) -> Void)) {
+        getProviderWithRequestBuilder(npi: npi, year: year, state: state).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
     }
@@ -34,15 +36,20 @@ public class ProvidersAPI: APIBase {
      - examples: [{contentType=application/json, example="{\n  \"provider\" : {\n    \"accepting_change_of_payor_patients\" : false,\n    \"accepting_medicaid_patients\" : true,\n    \"accepting_medicare_patients\" : false,\n    \"accepting_private_patients\" : true,\n    \"accepting_referral_patients\" : false,\n    \"city\" : \"New York\",\n    \"email\" : \"foo@bar.com\",\n    \"gender\" : \"M\",\n    \"first_name\" : \"John\",\n    \"hios_ids\" : [ \"44580NY0360001\" ],\n    \"id\" : 1013965003,\n    \"last_name\" : \"Doe\",\n    \"middle_name\" : \"Quintus\",\n    \"personal_phone\" : \"2035551800\",\n    \"phone\" : \"2223334444\",\n    \"presentation_name\" : \"Dr. John Doe\",\n    \"specialty\" : \"Internal Medicine\",\n    \"state\" : \"NY\",\n    \"state_id\" : 1,\n    \"street_line_1\" : \"123 Fake Street\",\n    \"street_line_2\" : \"\",\n    \"suffix\" : null,\n    \"title\" : \"Dr.\",\n    \"type\" : \"organization\",\n    \"zip_code\" : \"11215\"\n  }\n}"}]
      
      - parameter npi: (path) NPI number 
+     - parameter year: (query) Only show plan ids for the given year (optional)
+     - parameter state: (query) Only show plan ids for the given state (optional)
 
      - returns: RequestBuilder<ProviderShowResponse> 
      */
-    public class func getProviderWithRequestBuilder(npi npi: String) -> RequestBuilder<ProviderShowResponse> {
+    public class func getProviderWithRequestBuilder(npi npi: String, year: String? = nil, state: String? = nil) -> RequestBuilder<ProviderShowResponse> {
         var path = "/providers/{npi}"
         path = path.stringByReplacingOccurrencesOfString("{npi}", withString: "\(npi)", options: .LiteralSearch, range: nil)
         let URLString = vericred_clientAPI.basePath + path
 
-        let nillableParameters: [String:AnyObject?] = [:]
+        let nillableParameters: [String:AnyObject?] = [
+            "year": year,
+            "state": state
+        ]
  
         let parameters = APIHelper.rejectNil(nillableParameters)
  
@@ -50,7 +57,7 @@ public class ProvidersAPI: APIBase {
  
         let requestBuilder: RequestBuilder<ProviderShowResponse>.Type = vericred_clientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
     /**
