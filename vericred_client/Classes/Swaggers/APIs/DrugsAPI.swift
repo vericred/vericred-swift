@@ -15,7 +15,7 @@ public class DrugsAPI: APIBase {
      Search for DrugCoverages
      
      - parameter ndcPackageCode: (path) NDC package code 
-     - parameter audience: (query) Two-character state code 
+     - parameter audience: (query) Plan Audience (individual or small_group) 
      - parameter stateCode: (query) Two-character state code 
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -33,10 +33,10 @@ public class DrugsAPI: APIBase {
      - API Key:
        - type: apiKey Vericred-Api-Key 
        - name: Vericred-Api-Key
-     - examples: [{example="{\n  \"coverages\" : [ {\n    \"plan_id\" : \"98825NY2251359\",\n    \"ndc_package_code\" : \"00000-0000-00\",\n    \"tier\" : \"TIER 1\",\n    \"quantity_limit\" : true,\n    \"prior_authorization\" : true,\n    \"step_therapy\" : false\n  } ]\n}", contentType=application/json}]
+     - examples: [{contentType=application/json, example="{\n  \"coverages\" : [ {\n    \"plan_id\" : \"98825NY2251359\",\n    \"ndc_package_code\" : \"00000-0000-00\",\n    \"tier\" : \"TIER 1\",\n    \"quantity_limit\" : true,\n    \"prior_authorization\" : true,\n    \"step_therapy\" : false\n  } ]\n}"}]
      
      - parameter ndcPackageCode: (path) NDC package code 
-     - parameter audience: (query) Two-character state code 
+     - parameter audience: (query) Plan Audience (individual or small_group) 
      - parameter stateCode: (query) Two-character state code 
 
      - returns: RequestBuilder<DrugCoverageResponse> 
@@ -80,21 +80,23 @@ public class DrugsAPI: APIBase {
      - API Key:
        - type: apiKey Vericred-Api-Key 
        - name: Vericred-Api-Key
-     - examples: [{example={
-  "drug_packages" : [ {
-    "id" : "aeiou",
-    "description" : "aeiou"
-  } ],
+     - examples: [{contentType=application/json, example={
   "drugs" : [ {
-    "id" : "aeiou",
-    "proprietary_name" : "aeiou",
     "non_proprietary_name" : "aeiou",
-    "drug_package_ids" : [ "aeiou" ]
+    "proprietary_name" : "aeiou",
+    "drug_package_ids" : [ "aeiou" ],
+    "id" : "aeiou",
+    "active_ingredient_strength" : "aeiou"
   } ],
   "meta" : {
     "total" : ""
-  }
-}, contentType=application/json}]
+  },
+  "drug_packages" : [ {
+    "med_id" : "",
+    "description" : "aeiou",
+    "id" : "aeiou"
+  } ]
+}}]
      
      - parameter searchTerm: (query) Full or partial proprietary name of drug 
 

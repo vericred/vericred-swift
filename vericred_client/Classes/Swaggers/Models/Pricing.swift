@@ -31,6 +31,10 @@ public class Pricing: JSONEncodable {
     public var premiumSingleSmoker: Double?
     /** Foreign key to rating areas */
     public var ratingAreaId: String?
+    /** Where was this pricing data extracted from? */
+    public var premiumSource: String?
+    /** Time when pricing was last updated */
+    public var updatedAt: String?
 
     public init() {}
 
@@ -48,6 +52,8 @@ public class Pricing: JSONEncodable {
         nillableDictionary["premium_single_and_spouse"] = self.premiumSingleAndSpouse
         nillableDictionary["premium_single_smoker"] = self.premiumSingleSmoker
         nillableDictionary["rating_area_id"] = self.ratingAreaId
+        nillableDictionary["premium_source"] = self.premiumSource
+        nillableDictionary["updated_at"] = self.updatedAt
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

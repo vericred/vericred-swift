@@ -11,7 +11,7 @@ import Foundation
 public class Plan: JSONEncodable {
     /** Does the plan provide dental coverage for adults? */
     public var adultDental: Bool?
-    /**  */
+    /** True if the plan allows dependents up to age 29 */
     public var age29Rider: Bool?
     /** Benefits string for ambulance coverage */
     public var ambulance: String?
@@ -35,7 +35,7 @@ public class Plan: JSONEncodable {
     public var diagnosticTest: String?
     /** Alternate name for the Plan */
     public var displayName: String?
-    /** Is this a domestic plan? */
+    /** True if plan does not cover domestic partners */
     public var dpRider: Bool?
     /** Link to the summary of drug benefits for the plan */
     public var drugFormularyUrl: String?
@@ -53,7 +53,7 @@ public class Plan: JSONEncodable {
     public var familyMedicalDeductible: String?
     /** Maximum out-of-pocket when a family is on the plan */
     public var familyMedicalMoop: String?
-    /** Is this a family plan? */
+    /** True if plan does not cover family planning */
     public var fpRider: Bool?
     /** Cost for generic drugs */
     public var genericDrugs: String?
@@ -131,6 +131,8 @@ public class Plan: JSONEncodable {
     public var premiumSubsidized: Double?
     /** Cumulative premium amount */
     public var premium: Double?
+    /** Source of the base pricing data */
+    public var premiumSource: String?
     /** Cost under the plan to visit a Primary Care Physician */
     public var primaryCarePhysician: String?
     /** Benefits summary for rehabilitation services */
@@ -212,6 +214,7 @@ public class Plan: JSONEncodable {
         nillableDictionary["preventative_care"] = self.preventativeCare
         nillableDictionary["premium_subsidized"] = self.premiumSubsidized
         nillableDictionary["premium"] = self.premium
+        nillableDictionary["premium_source"] = self.premiumSource
         nillableDictionary["primary_care_physician"] = self.primaryCarePhysician
         nillableDictionary["rehabilitation_services"] = self.rehabilitationServices
         nillableDictionary["service_area_id"] = self.serviceAreaId

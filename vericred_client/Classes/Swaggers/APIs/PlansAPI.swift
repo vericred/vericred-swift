@@ -14,10 +14,10 @@ public class PlansAPI: APIBase {
     /**
      Find Plans
      
-     - parameter body: (body)  (optional)
+     - parameter body: (body)  
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func findPlans(body body: RequestPlanFind? = nil, completion: ((data: PlanSearchResponse?, error: ErrorType?) -> Void)) {
+    public class func findPlans(body body: RequestPlanFind, completion: ((data: PlanSearchResponse?, error: ErrorType?) -> Void)) {
         findPlansWithRequestBuilder(body: body).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
@@ -27,20 +27,20 @@ public class PlansAPI: APIBase {
     /**
      Find Plans
      - POST /plans/search
-     - ### Location Information  Searching for a set of plans requires a `zip_code` and `fips_code` code.  These are used to determine pricing and availabity of health plans. This endpoint is paginated.  Optionally, you may provide a list of Applicants or Providers  ### Applicants  This is a list of people who will be covered by the plan.  We use this list to calculate the premium.  You must include `age` and can include `smoker`, which also factors into pricing in some states.  Applicants *must* include an age.  If smoker is omitted, its value is assumed to be false.  #### Multiple Applicants To get pricing for multiple applicants, just append multiple sets of data to the URL with the age and smoking status of each applicant next to each other.  For example, given two applicants - one age 32 and a non-smoker and one age 29 and a smoker, you could use the following request  `GET /plans?zip_code=07451&fips_code=33025&applicants[][age]=32&applicants[][age]=29&applicants[][smoker]=true`  It would also be acceptible to include `applicants[][smoker]=false` after the first applicant's age.  ### Providers  We identify Providers (Doctors) by their National Practitioner Index number (NPI).  If you pass a list of Providers, keyed by their NPI number, we will return a list of which Providers are in and out of network for each plan returned.  For example, if we had two providers with the NPI numbers `12345` and `23456` you would make the following request  `GET /plans?zip_code=07451&fips_code=33025&providers[][npi]=12345&providers[][npi]=23456`  ### Enrollment Date  To calculate plan pricing and availability, we default to the current date as the enrollment date.  To specify a date in the future (or the past), pass a string with the format `YYYY-MM-DD` in the `enrollment_date` parameter.  `GET /plans?zip_code=07451&fips_code=33025&enrollment_date=2016-01-01`  ### Subsidy  On-marketplace plans are eligible for a subsidy based on the `household_size` and `household_income` of the applicants.  If you pass those values, we will calculate the `subsidized_premium` and return it for each plan.  If no values are provided, the `subsidized_premium` will be the same as the `premium`  `GET /plans?zip_code=07451&fips_code=33025&household_size=4&household_income=40000`   ### Sorting  Plans can be sorted by the `premium`, `carrier_name`, `level`, and `plan_type` fields, by either ascending (as `asc`) or descending (as `dsc) sort under the `sort` field.  For example, to sort plans by level, the sort parameter would be `level:asc`. 
+     - ### Location Information  Searching for a set of plans requires a `zip_code` and `fips_code` code.  These are used to determine pricing and availabity of health plans. This endpoint is paginated.  Optionally, you may provide a list of Applicants or Providers  ### Applicants  This is a list of people who will be covered by the plan.  We use this list to calculate the premium.  You must include `age` and can include `smoker`, which also factors into pricing in some states.  Applicants *must* include an age.  If smoker is omitted, its value is assumed to be false.  #### Multiple Applicants To get pricing for multiple applicants, just append multiple sets of data to the URL with the age and smoking status of each applicant next to each other.  For example, given two applicants - one age 32 and a non-smoker and one age 29 and a smoker, you could use the following request  `GET /plans?zip_code=07451&fips_code=33025&applicants[][age]=32&applicants[][age]=29&applicants[][smoker]=true`  It would also be acceptible to include `applicants[][smoker]=false` after the first applicant's age.  ### Providers  We identify Providers (Doctors) by their National Practitioner Index number (NPI).  If you pass a list of Providers, keyed by their NPI number, we will return a list of which Providers are in and out of network for each plan returned.  For example, if we had two providers with the NPI numbers `12345` and `23456` you would make the following request  `GET /plans?zip_code=07451&fips_code=33025&providers[][npi]=12345&providers[][npi]=23456`  ### Enrollment Date  To calculate plan pricing and availability, we default to the current date as the enrollment date.  To specify a date in the future (or the past), pass a string with the format `YYYY-MM-DD` in the `enrollment_date` parameter.  `GET /plans?zip_code=07451&fips_code=33025&enrollment_date=2016-01-01`  ### Subsidy  On-marketplace plans are eligible for a subsidy based on the `household_size` and `household_income` of the applicants.  If you pass those values, we will calculate the `subsidized_premium` and return it for each plan.  If no values are provided, the `subsidized_premium` will be the same as the `premium`  `GET /plans?zip_code=07451&fips_code=33025&household_size=4&household_income=40000`   ### Sorting  Plans can be sorted by the `premium`, `carrier_name`, `level`, and `plan_type` fields, by either ascending (as `asc`) or descending (as `dsc`) sort under the `sort` field.  For example, to sort plans by level, the sort parameter would be `level:asc`. 
      - API Key:
        - type: apiKey Vericred-Api-Key 
        - name: Vericred-Api-Key
-     - examples: [{example="{\n  \"plans\" : [ {\n    \"adult_dental\" : true,\n    \"benefits_summary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/HIXHub/BenefitSummary_SelectCareSilver.pdf\",\n    \"buy_link\" : \"http://www.healthbenefitexchange.ny.gov/\",\n    \"carrier_name\" : \"EmblemHealth\",\n    \"child_dental\" : \"\",\n    \"customer_service_phone_number\" : \"1-866-640-3889\",\n    \"drug_formulary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/Pharmacy/ValuePlus_Formulary.pdf\",\n    \"emergency_room\" : \"Deductible, then $150\",\n    \"family_drug_deductible\" : \"Included in Medical\",\n    \"family_drug_moop\" : \"Included in Medical\",\n    \"family_medical_deductible\" : \"$4,000\",\n    \"family_medical_moop\" : \"$11,000\",\n    \"generic_drugs\" : \"$10\",\n    \"id\" : \"88582NY0230001\",\n    \"in_network_ids\" : [ 123456789, 234567890 ],\n    \"individual_drug_deductible\" : \"Included in Medical\",\n    \"individual_drug_moop\" : \"Included in Medical\",\n    \"individual_medical_deductible\" : \"$2,000\",\n    \"individual_medical_moop\" : \"$5,500\",\n    \"inpatient_facility\" : \"Deductible, then $1,500 per admission\\\"\",\n    \"inpatient_physician\" : \"Included in inpatient facility\",\n    \"level\" : \"silver\",\n    \"logo_url\" : \"https://d1hm12jr612u3r.cloudfront.net/images/carriers/174/1438891372/thumb.png?1438891372\",\n    \"name\" : \"Select Care Silver, Age 29 Rider\",\n    \"non_preferred_brand_drugs\" : \"$70\",\n    \"out_of_network_coverage\" : \"\",\n    \"out_of_network_ids\" : [ 123456789, 234567890 ],\n    \"plan_market\" : \"shop\",\n    \"plan_type\" : \"HMO\",\n    \"preferred_brand_drugs\" : \"$35\",\n    \"premium_subsidized\" : 321.5,\n    \"premium\" : 533.24,\n    \"primary_care_physician\" : \"Deductible, then $30\",\n    \"specialist\" : \"Deductible, then $50\",\n    \"specialty_drugs\" : \"$70\"\n  } ]\n}", contentType=application/json}]
+     - examples: [{contentType=application/json, example="{\n  \"plans\" : [ {\n    \"adult_dental\" : true,\n    \"benefits_summary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/HIXHub/BenefitSummary_SelectCareSilver.pdf\",\n    \"buy_link\" : \"http://www.healthbenefitexchange.ny.gov/\",\n    \"carrier_name\" : \"EmblemHealth\",\n    \"child_dental\" : \"\",\n    \"customer_service_phone_number\" : \"1-866-640-3889\",\n    \"drug_formulary_url\" : \"http://www.emblemhealth.com/~/media/Files/PDF/Pharmacy/ValuePlus_Formulary.pdf\",\n    \"emergency_room\" : \"Deductible, then $150\",\n    \"family_drug_deductible\" : \"Included in Medical\",\n    \"family_drug_moop\" : \"Included in Medical\",\n    \"family_medical_deductible\" : \"$4,000\",\n    \"family_medical_moop\" : \"$11,000\",\n    \"generic_drugs\" : \"$10\",\n    \"id\" : \"88582NY0230001\",\n    \"in_network_ids\" : [ 123456789, 234567890 ],\n    \"individual_drug_deductible\" : \"Included in Medical\",\n    \"individual_drug_moop\" : \"Included in Medical\",\n    \"individual_medical_deductible\" : \"$2,000\",\n    \"individual_medical_moop\" : \"$5,500\",\n    \"inpatient_facility\" : \"Deductible, then $1,500 per admission\\\"\",\n    \"inpatient_physician\" : \"Included in inpatient facility\",\n    \"level\" : \"silver\",\n    \"logo_url\" : \"https://d1hm12jr612u3r.cloudfront.net/images/carriers/174/1438891372/thumb.png?1438891372\",\n    \"name\" : \"Select Care Silver, Age 29 Rider\",\n    \"non_preferred_brand_drugs\" : \"$70\",\n    \"out_of_network_coverage\" : \"\",\n    \"out_of_network_ids\" : [ 123456789, 234567890 ],\n    \"plan_market\" : \"shop\",\n    \"plan_type\" : \"HMO\",\n    \"preferred_brand_drugs\" : \"$35\",\n    \"premium_subsidized\" : 321.5,\n    \"premium\" : 533.24,\n    \"primary_care_physician\" : \"Deductible, then $30\",\n    \"specialist\" : \"Deductible, then $50\",\n    \"specialty_drugs\" : \"$70\"\n  } ]\n}"}]
      
-     - parameter body: (body)  (optional)
+     - parameter body: (body)  
 
      - returns: RequestBuilder<PlanSearchResponse> 
      */
-    public class func findPlansWithRequestBuilder(body body: RequestPlanFind? = nil) -> RequestBuilder<PlanSearchResponse> {
+    public class func findPlansWithRequestBuilder(body body: RequestPlanFind) -> RequestBuilder<PlanSearchResponse> {
         let path = "/plans/search"
         let URLString = vericred_clientAPI.basePath + path
-        let parameters = body?.encodeToJSON() as? [String:AnyObject]
+        let parameters = body.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
@@ -52,11 +52,12 @@ public class PlansAPI: APIBase {
     /**
      Show Plan
      
+     - parameter id: (path) ID of the Plan 
      - parameter year: (query) Plan year (defaults to current year) (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func showPlan(year year: Int32? = nil, completion: ((data: PlanShowResponse?, error: ErrorType?) -> Void)) {
-        showPlanWithRequestBuilder(year: year).execute { (response, error) -> Void in
+    public class func showPlan(id id: String, year: Int32? = nil, completion: ((data: PlanShowResponse?, error: ErrorType?) -> Void)) {
+        showPlanWithRequestBuilder(id: id, year: year).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
     }
@@ -69,85 +70,88 @@ public class PlansAPI: APIBase {
      - API Key:
        - type: apiKey Vericred-Api-Key 
        - name: Vericred-Api-Key
-     - examples: [{example={
+     - examples: [{contentType=application/json, example={
   "plan" : {
-    "habilitation_services" : "aeiou",
+    "family_drug_moop" : "aeiou",
+    "logo_url" : "aeiou",
+    "age29_rider" : true,
     "in_network_ids" : [ "" ],
-    "plan_market" : "aeiou",
-    "family_medical_deductible" : "aeiou",
-    "individual_medical_deductible" : "aeiou",
-    "specialist" : "aeiou",
-    "outpatient_mental_health" : "aeiou",
-    "preventative_care" : "aeiou",
+    "individual_medical_moop" : "aeiou",
+    "customer_service_phone_number" : "aeiou",
+    "premium_subsidized" : 1.3579000000000001069366817318950779736042022705078125,
+    "child_eyewear" : "aeiou",
+    "expiration_date" : "aeiou",
+    "durable_medical_equipment" : "aeiou",
+    "inpatient_physician" : "aeiou",
     "preferred_brand_drugs" : "aeiou",
-    "on_market" : true,
+    "service_area_id" : "aeiou",
+    "child_dental" : true,
     "family_medical_moop" : "aeiou",
+    "effective_date" : "aeiou",
     "individual_drug_deductible" : "aeiou",
     "outpatient_physician" : "aeiou",
-    "individual_medical_moop" : "aeiou",
-    "premium_subsidized" : 1.3579000000000001069366817318950779736042022705078125,
-    "skilled_nursing" : "aeiou",
-    "inpatient_facility" : "aeiou",
-    "level" : "aeiou",
-    "customer_service_phone_number" : "aeiou",
-    "child_dental" : true,
-    "outpatient_facility" : "aeiou",
-    "generic_drugs" : "aeiou",
-    "emergency_room" : "aeiou",
-    "carrier_name" : "aeiou",
-    "logo_url" : "aeiou",
-    "plan_type" : "aeiou",
-    "diagnostic_test" : "aeiou",
-    "inpatient_mental_health" : "aeiou",
-    "non_preferred_brand_drugs" : "aeiou",
-    "specialty_drugs" : "aeiou",
-    "off_market" : true,
-    "imaging" : "aeiou",
-    "inpatient_physician" : "aeiou",
-    "family_drug_deductible" : "aeiou",
-    "display_name" : "aeiou",
-    "expiration_date" : "aeiou",
-    "home_health_care" : "aeiou",
-    "fp_rider" : true,
-    "individual_drug_moop" : "aeiou",
-    "service_area_id" : "aeiou",
-    "child_eye_exam" : "aeiou",
-    "inpatient_birth" : "aeiou",
-    "family_drug_moop" : "aeiou",
-    "ambulance" : "aeiou",
-    "benefits_summary_url" : "aeiou",
-    "drug_formulary_url" : "aeiou",
-    "urgent_care" : "aeiou",
     "id" : "aeiou",
-    "inpatient_substance" : "aeiou",
-    "hios_issuer_id" : "aeiou",
-    "out_of_network_coverage" : true,
-    "name" : "aeiou",
-    "buy_link" : "aeiou",
-    "outpatient_substance" : "aeiou",
-    "durable_medical_equipment" : "aeiou",
-    "age29_rider" : true,
-    "hsa_eligible" : true,
-    "child_eyewear" : "aeiou",
-    "premium" : 1.3579000000000001069366817318950779736042022705078125,
-    "dp_rider" : true,
+    "premium_source" : "aeiou",
     "primary_care_physician" : "aeiou",
-    "adult_dental" : true,
-    "prenatal_postnatal_care" : "aeiou",
-    "hospice_service" : "aeiou",
-    "rehabilitation_services" : "aeiou",
-    "out_of_network_ids" : [ "" ],
+    "individual_medical_deductible" : "aeiou",
     "network_size" : "",
-    "effective_date" : "aeiou"
+    "level" : "aeiou",
+    "plan_market" : "aeiou",
+    "inpatient_facility" : "aeiou",
+    "outpatient_mental_health" : "aeiou",
+    "family_drug_deductible" : "aeiou",
+    "ambulance" : "aeiou",
+    "hios_issuer_id" : "aeiou",
+    "display_name" : "aeiou",
+    "imaging" : "aeiou",
+    "urgent_care" : "aeiou",
+    "emergency_room" : "aeiou",
+    "rehabilitation_services" : "aeiou",
+    "hospice_service" : "aeiou",
+    "specialist" : "aeiou",
+    "outpatient_substance" : "aeiou",
+    "name" : "aeiou",
+    "habilitation_services" : "aeiou",
+    "inpatient_substance" : "aeiou",
+    "fp_rider" : true,
+    "home_health_care" : "aeiou",
+    "plan_type" : "aeiou",
+    "dp_rider" : true,
+    "buy_link" : "aeiou",
+    "skilled_nursing" : "aeiou",
+    "premium" : 1.3579000000000001069366817318950779736042022705078125,
+    "diagnostic_test" : "aeiou",
+    "generic_drugs" : "aeiou",
+    "non_preferred_brand_drugs" : "aeiou",
+    "off_market" : true,
+    "carrier_name" : "aeiou",
+    "out_of_network_ids" : [ "" ],
+    "hsa_eligible" : true,
+    "adult_dental" : true,
+    "benefits_summary_url" : "aeiou",
+    "prenatal_postnatal_care" : "aeiou",
+    "drug_formulary_url" : "aeiou",
+    "child_eye_exam" : "aeiou",
+    "individual_drug_moop" : "aeiou",
+    "inpatient_mental_health" : "aeiou",
+    "preventative_care" : "aeiou",
+    "inpatient_birth" : "aeiou",
+    "on_market" : true,
+    "outpatient_facility" : "aeiou",
+    "specialty_drugs" : "aeiou",
+    "family_medical_deductible" : "aeiou",
+    "out_of_network_coverage" : true
   }
-}, contentType=application/json}]
+}}]
      
+     - parameter id: (path) ID of the Plan 
      - parameter year: (query) Plan year (defaults to current year) (optional)
 
      - returns: RequestBuilder<PlanShowResponse> 
      */
-    public class func showPlanWithRequestBuilder(year year: Int32? = nil) -> RequestBuilder<PlanShowResponse> {
-        let path = "/plans/{id}"
+    public class func showPlanWithRequestBuilder(id id: String, year: Int32? = nil) -> RequestBuilder<PlanShowResponse> {
+        var path = "/plans/{id}"
+        path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
         let URLString = vericred_clientAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [

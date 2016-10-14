@@ -9,7 +9,7 @@ import Foundation
 
 
 public class Base: JSONEncodable {
-    /** Metadata for query */
+    /** Meta-data */
     public var meta: Meta?
 
     public init() {}

@@ -9,7 +9,7 @@ import Foundation
 
 
 public class NetworkSearchResponse: JSONEncodable {
-    /** Metadata for query */
+    /** Meta-data */
     public var meta: Meta?
     /** Networks that fit the requested criterion. */
     public var networks: [Network]?

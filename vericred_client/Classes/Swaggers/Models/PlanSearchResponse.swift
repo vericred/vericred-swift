@@ -9,12 +9,12 @@ import Foundation
 
 
 public class PlanSearchResponse: JSONEncodable {
-    /** Metadata for query */
+    /** Meta-data */
     public var meta: Meta?
     /** Plan search results */
     public var plans: [Plan]?
-    /** null */
-    public var coverages: [Drug]?
+    /** Coverages associated with the plan. */
+    public var coverages: [DrugCoverage]?
 
     public init() {}
 

@@ -31,7 +31,7 @@ public class ZipCountiesAPI: APIBase {
      - API Key:
        - type: apiKey Vericred-Api-Key 
        - name: Vericred-Api-Key
-     - examples: [{example="{\n  \"zip_counties\" : [ {\n    \"county_id\" : 1,\n    \"zip_code_id\" : 2\n  } ],\n  \"zip_codes\" : [ {\n    \"id\" : 2,\n    \"code\" : \"10024\"\n  } ],\n  \"counties\" : [ {\n    \"id\" : 1,\n    \"fips_code\" : \"36061\",\n    \"name\" : \"New York\",\n    \"state_code\" : \"NY\",\n    \"state_live\" : true,\n    \"state_live_for_business\" : false\n  } ]\n}", contentType=application/json}]
+     - examples: [{contentType=application/json, example="{\n  \"zip_counties\" : [ {\n    \"county_id\" : 1,\n    \"zip_code_id\" : 2\n  } ],\n  \"zip_codes\" : [ {\n    \"id\" : 2,\n    \"code\" : \"10024\"\n  } ],\n  \"counties\" : [ {\n    \"id\" : 1,\n    \"fips_code\" : \"36061\",\n    \"name\" : \"New York\",\n    \"state_code\" : \"NY\",\n    \"state_live\" : true,\n    \"state_live_for_business\" : false\n  } ]\n}"}]
      
      - parameter zipPrefix: (query) Partial five-digit Zip 
 
