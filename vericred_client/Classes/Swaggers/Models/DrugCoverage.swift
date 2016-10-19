@@ -13,14 +13,16 @@ public class DrugCoverage: JSONEncodable {
     public var planId: String?
     /** NDC package code */
     public var drugPackageId: String?
-    /** Tier Name */
-    public var tier: String?
+    /** Med ID */
+    public var medId: Int32?
     /** Quantity limit exists */
     public var quantityLimit: Bool?
     /** Prior authorization required */
     public var priorAuthorization: Bool?
     /** Step Treatment required */
     public var stepTherapy: Bool?
+    /** Tier Name */
+    public var tier: String?
 
     public init() {}
 
@@ -29,10 +31,11 @@ public class DrugCoverage: JSONEncodable {
         var nillableDictionary = [String:AnyObject?]()
         nillableDictionary["plan_id"] = self.planId
         nillableDictionary["drug_package_id"] = self.drugPackageId
-        nillableDictionary["tier"] = self.tier
+        nillableDictionary["med_id"] = self.medId?.encodeToJSON()
         nillableDictionary["quantity_limit"] = self.quantityLimit
         nillableDictionary["prior_authorization"] = self.priorAuthorization
         nillableDictionary["step_therapy"] = self.stepTherapy
+        nillableDictionary["tier"] = self.tier
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

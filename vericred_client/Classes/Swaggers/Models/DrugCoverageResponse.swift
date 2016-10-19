@@ -9,7 +9,7 @@ import Foundation
 
 
 public class DrugCoverageResponse: JSONEncodable {
-    /** Metadata for query */
+    /** Meta-data */
     public var meta: Meta?
     /** DrugCoverage search results */
     public var drugCoverages: [DrugCoverage]?

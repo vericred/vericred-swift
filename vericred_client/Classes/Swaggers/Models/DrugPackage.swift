@@ -13,6 +13,8 @@ public class DrugPackage: JSONEncodable {
     public var id: String?
     /** Package description */
     public var description: String?
+    /** Med ID */
+    public var medId: Int32?
 
     public init() {}
 
@@ -21,6 +23,7 @@ public class DrugPackage: JSONEncodable {
         var nillableDictionary = [String:AnyObject?]()
         nillableDictionary["id"] = self.id
         nillableDictionary["description"] = self.description
+        nillableDictionary["med_id"] = self.medId?.encodeToJSON()
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

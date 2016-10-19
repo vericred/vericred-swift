@@ -9,7 +9,7 @@ import Foundation
 
 
 public class ProvidersSearchResponse: JSONEncodable {
-    /** Metadata for query */
+    /** Meta-data */
     public var meta: Meta?
     /** Providers that fit the requested criterion. */
     public var providers: [Provider]?
