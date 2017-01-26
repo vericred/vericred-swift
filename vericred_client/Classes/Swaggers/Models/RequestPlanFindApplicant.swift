@@ -11,6 +11,10 @@ import Foundation
 public class RequestPlanFindApplicant: JSONEncodable {
     /** Age of applicant to search for */
     public var age: Int32?
+    /** Is this applicant a child? */
+    public var child: Bool?
+    /** Does this applicant smoke? */
+    public var smoker: Bool?
 
     public init() {}
 
@@ -18,6 +22,8 @@ public class RequestPlanFindApplicant: JSONEncodable {
     func encodeToJSON() -> AnyObject {
         var nillableDictionary = [String:AnyObject?]()
         nillableDictionary["age"] = self.age?.encodeToJSON()
+        nillableDictionary["child"] = self.child
+        nillableDictionary["smoker"] = self.smoker
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

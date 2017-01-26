@@ -11,7 +11,7 @@ import Foundation
 public class RequestPlanFindDrugPackage: JSONEncodable {
     /** National Drug Code ID (Package) */
     public var id: String?
-    /** Med ID, mutually exclusive with id */
+    /** Med ID */
     public var medId: Int32?
 
     public init() {}

@@ -2,8 +2,8 @@ Pod::Spec.new do |s|
   s.name = 'vericred_client'
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
-  s.version = '0.0.6'
-  s.source = { :git => 'https://github.com/vericred/vericred-swift',:tag => '0.0.6' }
+  s.version = '0.0.7'
+  s.source = { :git => 'https://github.com/vericred/vericred-swift',:tag => '0.0.7' }
   s.authors = 'Vericred Inc.'
   s.license = MIT
   s.homepage = 'https://github.com/vericred/vericred-swift'
