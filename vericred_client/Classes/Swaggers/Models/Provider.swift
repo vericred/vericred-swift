@@ -9,16 +9,6 @@ import Foundation
 
 
 public class Provider: JSONEncodable {
-    /** Is this provider accepting patients with a change of insurance? */
-    public var acceptingChangeOfPayorPatients: Bool?
-    /** Is this provider accepting new Medicaid patients? */
-    public var acceptingMedicaidPatients: Bool?
-    /** Is this provider accepting new Medicare patients? */
-    public var acceptingMedicarePatients: Bool?
-    /** Is this provider accepting new patients with private insurance? */
-    public var acceptingPrivatePatients: Bool?
-    /** Is this provider accepting new patients via referrals? */
-    public var acceptingReferralPatients: Bool?
     /** City name (e.g. Springfield). */
     public var city: String?
     /** Primary email address to contact the provider. */
@@ -71,11 +61,6 @@ public class Provider: JSONEncodable {
     // MARK: JSONEncodable
     func encodeToJSON() -> AnyObject {
         var nillableDictionary = [String:AnyObject?]()
-        nillableDictionary["accepting_change_of_payor_patients"] = self.acceptingChangeOfPayorPatients
-        nillableDictionary["accepting_medicaid_patients"] = self.acceptingMedicaidPatients
-        nillableDictionary["accepting_medicare_patients"] = self.acceptingMedicarePatients
-        nillableDictionary["accepting_private_patients"] = self.acceptingPrivatePatients
-        nillableDictionary["accepting_referral_patients"] = self.acceptingReferralPatients
         nillableDictionary["city"] = self.city
         nillableDictionary["email"] = self.email
         nillableDictionary["gender"] = self.gender

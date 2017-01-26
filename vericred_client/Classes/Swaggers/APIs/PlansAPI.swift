@@ -66,7 +66,7 @@ public class PlansAPI: APIBase {
     /**
      Show Plan
      - GET /plans/{id}
-     - Show the details of an individual Plan.  This includes deductibles, maximums out of pocket, and co-pay/coinsurance for benefits
+     - Show the details of an individual Plan.  This includes deductibles, maximums out of pocket, and co-pay/coinsurance for benefits (See [Benefits summary format](#header-benefits-summary-format) above.)
      - API Key:
        - type: apiKey Vericred-Api-Key 
        - name: Vericred-Api-Key

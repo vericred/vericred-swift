@@ -350,6 +350,20 @@ class Decoders {
             }
 
 
+            // Decoder for [FormularyResponse]
+            Decoders.addDecoder(clazz: [FormularyResponse].self) { (source: AnyObject) -> [FormularyResponse] in
+                return Decoders.decode(clazz: [FormularyResponse].self, source: source)
+            }
+            // Decoder for FormularyResponse
+            Decoders.addDecoder(clazz: FormularyResponse.self) { (source: AnyObject) -> FormularyResponse in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = FormularyResponse()
+                instance.meta = Decoders.decodeOptional(clazz: Meta.self, source: sourceDictionary["meta"])
+                instance.formularies = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["formularies"])
+                return instance
+            }
+
+
             // Decoder for [Meta]
             Decoders.addDecoder(clazz: [Meta].self) { (source: AnyObject) -> [Meta] in
                 return Decoders.decode(clazz: [Meta].self, source: source)
@@ -373,6 +387,34 @@ class Decoders {
                 let instance = Network()
                 instance.id = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["id"])
                 instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                return instance
+            }
+
+
+            // Decoder for [NetworkDetails]
+            Decoders.addDecoder(clazz: [NetworkDetails].self) { (source: AnyObject) -> [NetworkDetails] in
+                return Decoders.decode(clazz: [NetworkDetails].self, source: source)
+            }
+            // Decoder for NetworkDetails
+            Decoders.addDecoder(clazz: NetworkDetails.self) { (source: AnyObject) -> NetworkDetails in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = NetworkDetails()
+                instance.id = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["id"])
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.hiosIssuerIds = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["hios_issuer_ids"])
+                return instance
+            }
+
+
+            // Decoder for [NetworkDetailsResponse]
+            Decoders.addDecoder(clazz: [NetworkDetailsResponse].self) { (source: AnyObject) -> [NetworkDetailsResponse] in
+                return Decoders.decode(clazz: [NetworkDetailsResponse].self, source: source)
+            }
+            // Decoder for NetworkDetailsResponse
+            Decoders.addDecoder(clazz: NetworkDetailsResponse.self) { (source: AnyObject) -> NetworkDetailsResponse in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = NetworkDetailsResponse()
+                instance.network = Decoders.decodeOptional(clazz: NetworkDetails.self, source: sourceDictionary["network"])
                 return instance
             }
 
@@ -530,6 +572,20 @@ class Decoders {
             }
 
 
+            // Decoder for [PlanSearchResponseMeta]
+            Decoders.addDecoder(clazz: [PlanSearchResponseMeta].self) { (source: AnyObject) -> [PlanSearchResponseMeta] in
+                return Decoders.decode(clazz: [PlanSearchResponseMeta].self, source: source)
+            }
+            // Decoder for PlanSearchResponseMeta
+            Decoders.addDecoder(clazz: PlanSearchResponseMeta.self) { (source: AnyObject) -> PlanSearchResponseMeta in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = PlanSearchResponseMeta()
+                instance.total = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["total"])
+                instance.eligibleForChipMedicaid = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["eligible_for_chip_medicaid"])
+                return instance
+            }
+
+
             // Decoder for [PlanSearchResult]
             Decoders.addDecoder(clazz: [PlanSearchResult].self) { (source: AnyObject) -> [PlanSearchResult] in
                 return Decoders.decode(clazz: [PlanSearchResult].self, source: source)
@@ -660,11 +716,6 @@ class Decoders {
             Decoders.addDecoder(clazz: Provider.self) { (source: AnyObject) -> Provider in
                 let sourceDictionary = source as! [NSObject:AnyObject]
                 let instance = Provider()
-                instance.acceptingChangeOfPayorPatients = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["accepting_change_of_payor_patients"])
-                instance.acceptingMedicaidPatients = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["accepting_medicaid_patients"])
-                instance.acceptingMedicarePatients = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["accepting_medicare_patients"])
-                instance.acceptingPrivatePatients = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["accepting_private_patients"])
-                instance.acceptingReferralPatients = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["accepting_referral_patients"])
                 instance.city = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["city"])
                 instance.email = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["email"])
                 instance.gender = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["gender"])
@@ -700,11 +751,6 @@ class Decoders {
             Decoders.addDecoder(clazz: ProviderDetails.self) { (source: AnyObject) -> ProviderDetails in
                 let sourceDictionary = source as! [NSObject:AnyObject]
                 let instance = ProviderDetails()
-                instance.acceptingChangeOfPayorPatients = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["accepting_change_of_payor_patients"])
-                instance.acceptingMedicaidPatients = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["accepting_medicaid_patients"])
-                instance.acceptingMedicarePatients = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["accepting_medicare_patients"])
-                instance.acceptingPrivatePatients = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["accepting_private_patients"])
-                instance.acceptingReferralPatients = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["accepting_referral_patients"])
                 instance.city = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["city"])
                 instance.email = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["email"])
                 instance.gender = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["gender"])
@@ -733,6 +779,21 @@ class Decoders {
             }
 
 
+            // Decoder for [ProviderGeocode]
+            Decoders.addDecoder(clazz: [ProviderGeocode].self) { (source: AnyObject) -> [ProviderGeocode] in
+                return Decoders.decode(clazz: [ProviderGeocode].self, source: source)
+            }
+            // Decoder for ProviderGeocode
+            Decoders.addDecoder(clazz: ProviderGeocode.self) { (source: AnyObject) -> ProviderGeocode in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = ProviderGeocode()
+                instance.id = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["id"])
+                instance.latitude = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["latitude"])
+                instance.longitude = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["longitude"])
+                return instance
+            }
+
+
             // Decoder for [ProviderShowResponse]
             Decoders.addDecoder(clazz: [ProviderShowResponse].self) { (source: AnyObject) -> [ProviderShowResponse] in
                 return Decoders.decode(clazz: [ProviderShowResponse].self, source: source)
@@ -742,6 +803,20 @@ class Decoders {
                 let sourceDictionary = source as! [NSObject:AnyObject]
                 let instance = ProviderShowResponse()
                 instance.provider = Decoders.decodeOptional(clazz: Provider.self, source: sourceDictionary["provider"])
+                return instance
+            }
+
+
+            // Decoder for [ProvidersGeocodeResponse]
+            Decoders.addDecoder(clazz: [ProvidersGeocodeResponse].self) { (source: AnyObject) -> [ProvidersGeocodeResponse] in
+                return Decoders.decode(clazz: [ProvidersGeocodeResponse].self, source: source)
+            }
+            // Decoder for ProvidersGeocodeResponse
+            Decoders.addDecoder(clazz: ProvidersGeocodeResponse.self) { (source: AnyObject) -> ProvidersGeocodeResponse in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = ProvidersGeocodeResponse()
+                instance.meta = Decoders.decodeOptional(clazz: Meta.self, source: sourceDictionary["meta"])
+                instance.providers = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["providers"])
                 return instance
             }
 
@@ -809,6 +884,8 @@ class Decoders {
                 let sourceDictionary = source as! [NSObject:AnyObject]
                 let instance = RequestPlanFindApplicant()
                 instance.age = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["age"])
+                instance.child = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["child"])
+                instance.smoker = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["smoker"])
                 return instance
             }
 
@@ -849,15 +926,17 @@ class Decoders {
                 let sourceDictionary = source as! [NSObject:AnyObject]
                 let instance = RequestProvidersSearch()
                 instance.acceptsInsurance = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["accepts_insurance"])
-                instance.hiosIds = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["hios_ids"])
                 instance.minScore = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["min_score"])
                 instance.networkIds = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["network_ids"])
                 instance.page = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["page"])
                 instance.perPage = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["per_page"])
+                instance.polygon = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["polygon"])
                 instance.radius = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["radius"])
                 instance.searchTerm = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["search_term"])
-                instance.zipCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["zip_code"])
+                instance.sort = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["sort"])
+                instance.sortSeed = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["sort_seed"])
                 instance.type = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["type"])
+                instance.zipCode = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["zip_code"])
                 return instance
             }
 
@@ -912,6 +991,20 @@ class Decoders {
             }
 
 
+            // Decoder for [StateNetworkSizeRequest]
+            Decoders.addDecoder(clazz: [StateNetworkSizeRequest].self) { (source: AnyObject) -> [StateNetworkSizeRequest] in
+                return Decoders.decode(clazz: [StateNetworkSizeRequest].self, source: source)
+            }
+            // Decoder for StateNetworkSizeRequest
+            Decoders.addDecoder(clazz: StateNetworkSizeRequest.self) { (source: AnyObject) -> StateNetworkSizeRequest in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = StateNetworkSizeRequest()
+                instance.networkIds = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["network_ids"])
+                instance.stateIds = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["state_ids"])
+                return instance
+            }
+
+
             // Decoder for [StateNetworkSizeResponse]
             Decoders.addDecoder(clazz: [StateNetworkSizeResponse].self) { (source: AnyObject) -> [StateNetworkSizeResponse] in
                 return Decoders.decode(clazz: [StateNetworkSizeResponse].self, source: source)
@@ -922,6 +1015,88 @@ class Decoders {
                 let instance = StateNetworkSizeResponse()
                 instance.meta = Decoders.decodeOptional(clazz: Meta.self, source: sourceDictionary["meta"])
                 instance.networkSizes = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["network_sizes"])
+                return instance
+            }
+
+
+            // Decoder for [VendoredPlanBulk]
+            Decoders.addDecoder(clazz: [VendoredPlanBulk].self) { (source: AnyObject) -> [VendoredPlanBulk] in
+                return Decoders.decode(clazz: [VendoredPlanBulk].self, source: source)
+            }
+            // Decoder for VendoredPlanBulk
+            Decoders.addDecoder(clazz: VendoredPlanBulk.self) { (source: AnyObject) -> VendoredPlanBulk in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = VendoredPlanBulk()
+                instance.adultDental = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["adult_dental"])
+                instance.age29Rider = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["age29_rider"])
+                instance.ambulance = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["ambulance"])
+                instance.benefitsSummaryUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["benefits_summary_url"])
+                instance.buyLink = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["buy_link"])
+                instance.carrierName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["carrier_name"])
+                instance.childDental = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["child_dental"])
+                instance.childEyewear = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["child_eyewear"])
+                instance.childEyeExam = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["child_eye_exam"])
+                instance.customerServicePhoneNumber = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["customer_service_phone_number"])
+                instance.durableMedicalEquipment = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["durable_medical_equipment"])
+                instance.diagnosticTest = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["diagnostic_test"])
+                instance.displayName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["display_name"])
+                instance.dpRider = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["dp_rider"])
+                instance.drugFormularyUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["drug_formulary_url"])
+                instance.effectiveDate = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["effective_date"])
+                instance.expirationDate = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["expiration_date"])
+                instance.emergencyRoom = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["emergency_room"])
+                instance.familyDrugDeductible = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["family_drug_deductible"])
+                instance.familyDrugMoop = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["family_drug_moop"])
+                instance.familyMedicalDeductible = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["family_medical_deductible"])
+                instance.familyMedicalMoop = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["family_medical_moop"])
+                instance.fpRider = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["fp_rider"])
+                instance.genericDrugs = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["generic_drugs"])
+                instance.habilitationServices = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["habilitation_services"])
+                instance.hiosIssuerId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["hios_issuer_id"])
+                instance.homeHealthCare = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["home_health_care"])
+                instance.hospiceService = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["hospice_service"])
+                instance.hsaEligible = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["hsa_eligible"])
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.imaging = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["imaging"])
+                instance.inNetworkIds = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["in_network_ids"])
+                instance.individualDrugDeductible = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["individual_drug_deductible"])
+                instance.individualDrugMoop = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["individual_drug_moop"])
+                instance.individualMedicalDeductible = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["individual_medical_deductible"])
+                instance.individualMedicalMoop = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["individual_medical_moop"])
+                instance.inpatientBirth = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["inpatient_birth"])
+                instance.inpatientFacility = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["inpatient_facility"])
+                instance.inpatientMentalHealth = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["inpatient_mental_health"])
+                instance.inpatientPhysician = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["inpatient_physician"])
+                instance.inpatientSubstance = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["inpatient_substance"])
+                instance.level = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["level"])
+                instance.logoUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["logo_url"])
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.networkSize = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["network_size"])
+                instance.nonPreferredBrandDrugs = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["non_preferred_brand_drugs"])
+                instance.onMarket = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["on_market"])
+                instance.offMarket = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["off_market"])
+                instance.outOfNetworkCoverage = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["out_of_network_coverage"])
+                instance.outOfNetworkIds = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["out_of_network_ids"])
+                instance.outpatientFacility = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["outpatient_facility"])
+                instance.outpatientMentalHealth = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["outpatient_mental_health"])
+                instance.outpatientPhysician = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["outpatient_physician"])
+                instance.outpatientSubstance = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["outpatient_substance"])
+                instance.planMarket = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["plan_market"])
+                instance.planType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["plan_type"])
+                instance.preferredBrandDrugs = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["preferred_brand_drugs"])
+                instance.prenatalPostnatalCare = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["prenatal_postnatal_care"])
+                instance.preventativeCare = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["preventative_care"])
+                instance.premiumSubsidized = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["premium_subsidized"])
+                instance.premium = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["premium"])
+                instance.premiumSource = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["premium_source"])
+                instance.primaryCarePhysician = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["primary_care_physician"])
+                instance.rehabilitationServices = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["rehabilitation_services"])
+                instance.serviceAreaId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["service_area_id"])
+                instance.skilledNursing = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["skilled_nursing"])
+                instance.specialist = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["specialist"])
+                instance.specialtyDrugs = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["specialty_drugs"])
+                instance.urgentCare = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["urgent_care"])
+                instance.vendorId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["vendor_id"])
                 return instance
             }
 
