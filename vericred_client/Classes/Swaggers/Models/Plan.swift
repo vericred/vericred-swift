@@ -119,7 +119,7 @@ public class Plan: JSONEncodable {
     public var outpatientSubstance: String?
     /** Market in which the plan is offered (on_marketplace, shop, etc) */
     public var planMarket: String?
-    /** Category of the plan (e.g. EPO, HMO, PPO, POS, Indemnity) */
+    /** Category of the plan (e.g. EPO, HMO, PPO, POS, Indemnity, PACE, Medicare-Medicaid, HMO w/POS, Cost, FFS, MSA) */
     public var planType: String?
     /** Cost under the plan for perferred brand drugs */
     public var preferredBrandDrugs: String?
@@ -141,6 +141,8 @@ public class Plan: JSONEncodable {
     public var serviceAreaId: String?
     /** Benefits summary for skilled nursing services */
     public var skilledNursing: String?
+    /** Source of the plan benefit data */
+    public var source: String?
     /** Cost under the plan to visit a specialist */
     public var specialist: String?
     /** Cost under the plan for specialty drugs */
@@ -219,6 +221,7 @@ public class Plan: JSONEncodable {
         nillableDictionary["rehabilitation_services"] = self.rehabilitationServices
         nillableDictionary["service_area_id"] = self.serviceAreaId
         nillableDictionary["skilled_nursing"] = self.skilledNursing
+        nillableDictionary["source"] = self.source
         nillableDictionary["specialist"] = self.specialist
         nillableDictionary["specialty_drugs"] = self.specialtyDrugs
         nillableDictionary["urgent_care"] = self.urgentCare
